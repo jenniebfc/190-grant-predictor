@@ -870,10 +870,68 @@
             margin-top: 8px;
         }
 
+        /* 25-Month Table Mode Tabs */
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-mode-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .table-tab-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .table-tab-btn:hover {
+            background: var(--surface-muted);
+            border-color: var(--border-hover);
+            color: var(--text);
+        }
+
+        .table-tab-btn.active {
+            background: var(--primary);
+            color: #FFFFFF;
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .table-mode-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.45;
+            background: var(--surface-subtle);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        .table-mode-hint strong {
+            color: var(--text);
+        }
+
         /* Full Table Toggle */
         .table-wrap {
             overflow-x: auto;
-            margin-top: 14px;
+            margin-top: 10px;
         }
 
         table {
@@ -968,26 +1026,6 @@
             基于内政部官方底盘数据与最新部长令执行节奏，输入递交月份与申请人属性，即刻测算批签窗口与多模式推演。
         </p>
     </header>
-
-    <!-- Live Daily Activity Tracker (SmartVisaGuide #17751) -->
-    <div class="live-tracker-banner">
-        <div class="tracker-header">
-            <span class="tracker-badge"><span class="pulse-dot"></span> 9月22日 官方审批实盘雷达</span>
-            <span class="tracker-time">数据源：SmartVisaGuide Post #17751 & 社区获批实报</span>
-        </div>
-        <div class="tracker-grid">
-            <div class="tracker-col">
-                <div class="tracker-label">境外 Tier 1 优先通道实测</div>
-                <div class="tracker-val">推进至 <strong>2025-11-04</strong> (直签) / <strong>2025-06-29</strong> (常规批次)</div>
-                <div class="tracker-hint">土木工程师、建筑项目经理(CPM)、绘图员、教师等密集下签，无补料个案直接秒批！</div>
-            </div>
-            <div class="tracker-col">
-                <div class="tracker-label">境内 Tier 2 通道实测</div>
-                <div class="tracker-val">推进至 <strong>2026-01-28</strong> (Chef / TSE 等)</div>
-                <div class="tracker-hint">境内独立流水线（~94人/日）稳步吞吐，1月旧积压收官中，两地流水线互不挤占。</div>
-            </div>
-        </div>
-    </div>
 
     <!-- Input Form Panel -->
     <section class="panel">
@@ -1202,6 +1240,26 @@
         </div>
     </section>
 
+    <!-- Live Daily Activity Tracker (SmartVisaGuide #17751) -->
+    <div class="live-tracker-banner">
+        <div class="tracker-header">
+            <span class="tracker-badge"><span class="pulse-dot"></span> 9月22日 官方审批实盘雷达</span>
+            <span class="tracker-time">数据源：SmartVisaGuide Post #17751 & 社区获批实报</span>
+        </div>
+        <div class="tracker-grid">
+            <div class="tracker-col">
+                <div class="tracker-label">境外 Tier 1 优先通道实测</div>
+                <div class="tracker-val">推进至 <strong>2025-11-04</strong> (直签) / <strong>2025-06-29</strong> (常规批次)</div>
+                <div class="tracker-hint">土木工程师、建筑项目经理(CPM)、绘图员、教师等密集下签，无补料个案直接秒批！</div>
+            </div>
+            <div class="tracker-col">
+                <div class="tracker-label">境内 Tier 2 通道实测</div>
+                <div class="tracker-val">推进至 <strong>2026-01-28</strong> (Chef / TSE 等)</div>
+                <div class="tracker-hint">境内独立流水线（~94人/日）稳步吞吐，1月旧积压收官中，两地流水线互不挤占。</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Real-world Activity Feed -->
     <section class="panel">
         <div class="panel-header">
@@ -1318,6 +1376,18 @@
             <span id="table-arrow">＋</span>
         </div>
         <div class="acc-body" id="full-table-content" style="display:none;margin-top:14px;">
+            <div class="table-toolbar">
+                <span style="font-size:12px;font-weight:600;color:var(--text);">切换推演模式：</span>
+                <div class="table-mode-tabs">
+                    <button class="table-tab-btn active" data-mode="m2" onclick="switchTableMode('m2', this)">模式 2 · 双目标提速 (实测推荐)</button>
+                    <button class="table-tab-btn" data-mode="m1" onclick="switchTableMode('m1', this)">模式 1 · 128人基准</button>
+                    <button class="table-tab-btn" data-mode="m3" onclick="switchTableMode('m3', this)">模式 3 · T3单人优先</button>
+                    <button class="table-tab-btn" data-mode="m4" onclick="switchTableMode('m4', this)">模式 4 · 单通道 (已失效)</button>
+                </div>
+            </div>
+            <div class="table-mode-hint" id="table-mode-hint">
+                当前展示：<strong>【模式 2 · 双目标提速】</strong> 境内94+境外40人/日，双轨独立全速推进（与9.21~9.22官方审批实测吻合度最高）。
+            </div>
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -1687,15 +1757,44 @@ function toggleFullTable(el) {
     }
 }
 
+let currentTableMode = 'm2';
+
+const tableModeHints = {
+    'm2': '当前展示：<strong>【模式 2 · 双目标提速】</strong> 境内94+境外40人/日，双轨独立全速推进（与9.21~9.22官方审批实测吻合度最高）。',
+    'm1': '当前展示：<strong>【模式 1 · 固定基准】</strong> 128人/日固定速度（不借调配额，节奏较保守，全财年略有1,198人未消化）。',
+    'm3': '当前展示：<strong>【模式 3 · T3优先并行】</strong> 境外单人优先分得64%配额，与T4家庭类并行消化。',
+    'm4': '当前展示：<strong>【模式 4 · 单通道顺延】</strong> 假定境内全清才轮到境外（实盘已大面积下签境外，此模式已落空被证伪）。'
+};
+
+function switchTableMode(modeKey, btn) {
+    currentTableMode = modeKey;
+    document.querySelectorAll('.table-tab-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const hintEl = document.getElementById('table-mode-hint');
+    if (hintEl && tableModeHints[modeKey]) {
+        hintEl.innerHTML = tableModeHints[modeKey];
+    }
+    renderFullTable(modeKey);
+}
+
 function buildFullTable() {
+    renderFullTable(currentTableMode);
+}
+
+function renderFullTable(modeKey) {
     const tbody = document.getElementById('full-table-body');
+    if (!tbody) return;
     tbody.innerHTML = '';
+
+    const modeData = DATA[modeKey] || DATA.m2;
+
     months.forEach((m, idx) => {
         const tr = document.createElement('tr');
-        const t1_d = DATA.m2['1'][idx] ? DATA.m2['1'][idx].date : '-';
-        const t2_d = idx < 7 ? '<span style="color:#059669;font-weight:600">MD119已完成</span>' : (DATA.m2['2'][idx] ? DATA.m2['2'][idx].date : '-');
-        const t3_d = DATA.m2['3'][idx] ? DATA.m2['3'][idx].date : '-';
-        const t4_d = DATA.m2['4'][idx] ? DATA.m2['4'][idx].date : '-';
+        const t1_d = modeData['1'] && modeData['1'][idx] ? modeData['1'][idx].date : '-';
+        const t2_d = idx < 7 ? '<span style="color:#059669;font-weight:600">MD119已完成</span>' : (modeData['2'] && modeData['2'][idx] ? modeData['2'][idx].date : '-');
+        const t3_d = modeData['3'] && modeData['3'][idx] ? modeData['3'][idx].date : '-';
+        const t4_d = modeData['4'] && modeData['4'][idx] ? modeData['4'][idx].date : '-';
 
         tr.innerHTML = `
             <td>${m}</td>
