@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>澳洲190签证 · MD122智能批签预测工具</title>
+    <meta name="description" content="基于澳洲内政部FOI官方24,196人真实底盘数据与MD122四Tier规则，精准测算各Lodged月份在四套情景模式下的批签时间窗口。">
+    <style>
+        :root {
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --surface-muted: #F1F5F9;
+            --surface-subtle: #F8FAFC;
+            --border: #E2E8F0;
+            --border-hover: #CBD5E1;
+            --text: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --text-subtle: #94A3B8;
+            --primary: #0F172A;
+            --primary-hover: #1E293B;
+            --accent: #2563EB;
+            --accent-light: #EFF6FF;
+            --accent-border: #BFDBFE;
+            --t1: #EA580C;
+            --t1-bg: #FFF7ED;
+            --t1-border: #FFEDD5;
+            --t2: #2563EB;
+            --t2-bg: #EFF6FF;
+            --t2-border: #DBEAFE;
+            --t3: #059669;
+            --t3-bg: #ECFDF5;
+            --t3-border: #D1FAE5;
+            --t4: #9333EA;
+            --t4-bg: #FAF5FF;
+            --t4-border: #F3E8FF;
+            --radius-xl: 14px;
+            --radius-lg: 10px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .app-layout {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+        }
+
+        /* Header */
+        .app-header {
+            margin-bottom: 28px;
+        }
+
+        .meta-tags {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #059669;
+        }
+
+        .info-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--surface-muted);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .app-title {
+            font-size: clamp(24px, 4.5vw, 32px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .app-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Live Daily Activity Tracker Banner */
+        .live-tracker-banner {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-xl);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        }
+
+        .tracker-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tracker-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10B981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .tracker-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .tracker-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tracker-col {
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tracker-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .tracker-val {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .tracker-val strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .tracker-hint {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Panels / Cards */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Form Controls */
+        .control-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 680px) {
+            .control-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .select-shell {
+            position: relative;
+        }
+
+        .custom-select {
+            width: 100%;
+            height: 42px;
+            padding: 0 36px 0 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            appearance: none;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .custom-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .select-shell::after {
+            content: "";
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 5px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 10 6'%3E%3Cpath stroke='%2364748B' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        /* Flat Segmented Button Control */
+        .segment-group {
+            display: flex;
+            background: var(--surface-muted);
+            padding: 3px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            gap: 2px;
+        }
+
+        .segment-item {
+            flex: 1;
+            position: relative;
+        }
+
+        .segment-item input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .segment-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            padding: 0 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            white-space: nowrap;
+            user-select: none;
+            transition: all 0.15s ease;
+        }
+
+        .segment-item input:checked + .segment-label {
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .field-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        /* Tier Indicator Bar */
+        .tier-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.2s ease;
+        }
+
+        .tier-strip.t1 { background: var(--t1-bg); border-color: var(--t1-border); }
+        .tier-strip.t2 { background: var(--t2-bg); border-color: var(--t2-border); }
+        .tier-strip.t3 { background: var(--t3-bg); border-color: var(--t3-border); }
+        .tier-strip.t4 { background: var(--t4-bg); border-color: var(--t4-border); }
+
+        .tier-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tier-tag {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        .tier-tag.t1 { background: var(--t1); }
+        .tier-tag.t2 { background: var(--t2); }
+        .tier-tag.t3 { background: var(--t3); }
+        .tier-tag.t4 { background: var(--t4); }
+
+        .tier-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .tier-caption {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .tier-strip {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+        }
+
+        /* Hero Prediction Output */
+        .hero-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 28px 24px;
+            margin-bottom: 16px;
+        }
+
+        .hero-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .mode-chip {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border: 1px solid var(--accent-border);
+        }
+
+        .hero-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .hero-date {
+            font-size: clamp(32px, 6vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            line-height: 1.15;
+            margin: 6px 0 16px;
+        }
+
+        .hero-date.cleared {
+            color: #059669;
+            font-size: clamp(24px, 5vw, 34px);
+        }
+
+        /* Metrics Row */
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 540px) {
+            .metric-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-cell {
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+        }
+
+        .metric-cell-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .metric-cell-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Prominent Progress Bar Section */
+        .progress-block {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 12px;
+            border-radius: 99px;
+            background: var(--accent-light);
+            border: 1.5px solid var(--accent-border);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .progress-badge.complete {
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #059669;
+        }
+
+        .progress-line {
+            height: 9px;
+            background: var(--surface-muted);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 99px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-bar.complete {
+            background: #059669;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Direct Grant Fast-track Card */
+        .direct-grant-card {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #166534;
+            line-height: 1.5;
+        }
+
+        .dg-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #16A34A;
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: 0.02em;
+        }
+
+        .dg-text {
+            flex: 1;
+        }
+
+        .dg-date-highlight {
+            font-weight: 700;
+            color: #15803D;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* Seamless Koi & Encouragement Card (No Banner Title) */
+        .blessing-card {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: var(--radius-xl);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .blessing-avatar {
+            font-size: 22px;
+            line-height: 1;
+            padding-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .blessing-main {
+            flex: 1;
+        }
+
+        .blessing-msg {
+            font-size: 13px;
+            color: #166534;
+            line-height: 1.65;
+            margin-bottom: 10px;
+        }
+
+        .blessing-msg strong {
+            color: #14532D;
+            font-weight: 600;
+        }
+
+        .blessing-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .koi-btn {
+            background: #16A34A;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .koi-btn:hover {
+            background: #15803D;
+            transform: translateY(-1px);
+        }
+
+        .koi-btn:active {
+            transform: translateY(0);
+        }
+
+        .koi-feedback {
+            font-size: 12px;
+            font-weight: 600;
+            color: #15803D;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .koi-feedback.visible {
+            opacity: 1;
+        }
+
+        /* 4 Modes Section */
+        .modes-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .modes-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modes-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mode-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .mode-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .mode-badge-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .mode-id {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .rec-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .rec-tag.verified {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+
+        .rec-tag.neutral {
+            background: #F1F5F9;
+            color: #475569;
+            border: 1px solid #E2E8F0;
+        }
+
+        .rec-tag.obsolete {
+            background: #FEF2F2;
+            color: #991B1B;
+            border: 1px solid #FECACA;
+        }
+
+        .mode-card.obsolete {
+            opacity: 0.68;
+            background: #FAFAFA;
+            border-style: dashed;
+        }
+
+        .mode-title-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .mode-date-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+
+        .mode-desc-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Real Feed List */
+        .feed-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .feed-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+        }
+
+        .feed-occ {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .feed-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-left: 6px;
+        }
+
+        .feed-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        .feed-tag-dg {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        /* Accordion */
+        .acc-item {
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+
+        .acc-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .acc-trigger {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .acc-body {
+            display: none;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        /* Full Table Toggle */
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 540px;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        th {
+            background: var(--surface-muted);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Bottom Action Buttons */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: 1px solid var(--primary);
+            padding: 9px 18px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 9px 18px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-muted);
+        }
+
+        /* Footer */
+        .app-footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 48px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="meta-tags">
+            <span class="status-pill"><span class="status-dot"></span>9月22日实盘校准完成 · 吻合度>95%</span>
+            <span class="info-pill">FOI 24,196人唯一人头底盘</span>
+            <span class="info-pill">MD122 官方四Tier体系</span>
+            <span class="info-pill" style="color:var(--accent);border-color:var(--accent-border);background:var(--accent-light);">实测确证：境内外双轨并行</span>
+        </div>
+        <h1 class="app-title">澳洲 190 · MD122 智能批签预测</h1>
+        <p class="app-desc">
+            基于内政部官方底盘数据与最新部长令执行节奏，输入递交月份与申请人属性，即刻测算批签窗口与多模式推演。
+        </p>
+    </header>
+
+    <!-- Live Daily Activity Tracker (SmartVisaGuide #17751) -->
+    <div class="live-tracker-banner">
+        <div class="tracker-header">
+            <span class="tracker-badge"><span class="pulse-dot"></span> 9月22日 官方审批实盘雷达</span>
+            <span class="tracker-time">数据源：SmartVisaGuide Post #17751 & 社区获批实报</span>
+        </div>
+        <div class="tracker-grid">
+            <div class="tracker-col">
+                <div class="tracker-label">境外 Tier 1 优先通道实测</div>
+                <div class="tracker-val">推进至 <strong>2025-11-04</strong> (直签) / <strong>2025-06-29</strong> (常规批次)</div>
+                <div class="tracker-hint">土木工程师、建筑项目经理(CPM)、绘图员、教师等密集下签，无补料个案直接秒批！</div>
+            </div>
+            <div class="tracker-col">
+                <div class="tracker-label">境内 Tier 2 通道实测</div>
+                <div class="tracker-val">推进至 <strong>2026-01-28</strong> (Chef / TSE 等)</div>
+                <div class="tracker-hint">境内独立流水线（~94人/日）稳步吞吐，1月旧积压收官中，两地流水线互不挤占。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Form Panel -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">申请人画像与参数配置</h2>
+        </div>
+        <div class="control-grid">
+
+            <!-- Lodged Month -->
+            <div class="field">
+                <label class="field-label" for="lodged-select">
+                    <span>递交月份 (Date of Lodged)</span>
+                </label>
+                <div class="select-shell">
+                    <select id="lodged-select" class="custom-select" onchange="calculateForecast()">
+                        <!-- Filled by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="field">
+                <label class="field-label">
+                    <span>当前所在地</span>
+                </label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="loc-onshore" name="location" value="onshore" checked onchange="calculateForecast()">
+                        <label class="segment-label" for="loc-onshore">境内 (Onshore)</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="loc-offshore" name="location" value="offshore" onchange="calculateForecast()">
+                        <label class="segment-label" for="loc-offshore">境外 (Offshore)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occupation Type -->
+            <div class="field">
+                <label class="field-label">
+                    <span>职业属性</span>
+                </label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="occ-priority" name="occupation" value="priority" onchange="calculateForecast()">
+                        <label class="segment-label" for="occ-priority">优先职业 (Priority)</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="occ-non-priority" name="occupation" value="non-priority" checked onchange="calculateForecast()">
+                        <label class="segment-label" for="occ-non-priority">非优先职业 (General)</label>
+                    </div>
+                </div>
+                <div class="field-desc">优先职业含：医疗护理、教师、建筑建造、农业、国防等关键领域</div>
+            </div>
+
+            <!-- Family Composition -->
+            <div class="field">
+                <label class="field-label">
+                    <span>申请人结构</span>
+                </label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="fam-single" name="family" value="single" checked onchange="calculateForecast()">
+                        <label class="segment-label" for="fam-single">单人申请</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="fam-family" name="family" value="family" onchange="calculateForecast()">
+                        <label class="segment-label" for="fam-family">携副申请人</label>
+                    </div>
+                </div>
+                <div class="field-desc">境外非优先将依此细分为单人赛道 (Tier 3) 与家庭赛道 (Tier 4)</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tier Strip -->
+    <div id="tier-strip" class="tier-strip t2">
+        <div class="tier-left">
+            <span id="tier-tag" class="tier-tag t2">Tier 2</span>
+            <div>
+                <div id="tier-name" class="tier-name">境内非优先职业赛道</div>
+                <div id="tier-caption" class="tier-caption">澳洲境内非优先通道，占用境内独立流水线（~94人/日），配额充足稳健。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Result Card -->
+    <section class="hero-panel">
+        <div class="hero-top-row">
+            <span class="hero-label">预计批签下签时间</span>
+            <span class="mode-chip">推荐模式 2 · 官方双目标兑现</span>
+        </div>
+        <div id="grant-date-display" class="hero-date">2026-10-09</div>
+
+        <!-- Direct Grant Fast-track Window -->
+        <div class="direct-grant-card" id="direct-grant-card">
+            <span class="dg-badge">⚡ 免补料直签先锋窗口</span>
+            <span class="dg-text" id="dg-text">若材料齐全无 s56 补料，预计可提前 3~7 个工作日率先突围下签！</span>
+        </div>
+
+        <!-- Metrics row -->
+        <div class="metric-cards">
+            <div class="metric-cell">
+                <div class="metric-cell-label">距离今日约</div>
+                <div class="metric-cell-val" id="days-remaining">17 天</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-cell-label">移民局净工作日</div>
+                <div class="metric-cell-val" id="workdays-remaining">13 天</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-cell-label">配额财年归属</div>
+                <div class="metric-cell-val" id="fy-label">FY27 境内</div>
+            </div>
+        </div>
+
+        <!-- Prominent Progress Bar with Percentage -->
+        <div class="progress-block">
+            <div class="progress-header">
+                <span class="progress-title">全程排期等待进度</span>
+                <span class="progress-badge" id="progress-badge">
+                    <span id="progress-pct-text">已完成 75%</span>
+                </span>
+            </div>
+            <div class="progress-line">
+                <div class="progress-bar" id="progress-bar" style="width: 75%;"></div>
+            </div>
+            <div class="progress-labels">
+                <span id="label-start">递交申请</span>
+                <span style="color:var(--text-secondary);font-weight:600;">2026-09-19 切入MD122</span>
+                <span id="label-end">预计获批</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seamless Mental Massage & Koi Blessing Card (NO Header Title) -->
+    <div class="blessing-card" id="blessing-card">
+        <div class="blessing-avatar">🐟✨</div>
+        <div class="blessing-main">
+            <div class="blessing-msg" id="blessing-msg">
+                <!-- Dynamically filled by JS -->
+            </div>
+            <div class="blessing-footer">
+                <button class="koi-btn" onclick="triggerKoiBlessing()">
+                    <span>点亮今日下签锦鲤</span>
+                </button>
+                <span class="koi-feedback" id="koi-feedback"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Four Modes Comparison -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">四套情景模式推演对照</h2>
+        </div>
+        <div class="modes-container">
+
+            <!-- Mode 2 (Active / Rec) -->
+            <div class="mode-card active">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 2</span>
+                        <span class="rec-tag verified">实测吻合 96% · 官方运行模式</span>
+                    </div>
+                    <div class="mode-title-text">双目标兑现 · 提速</div>
+                </div>
+                <div class="mode-date-val" id="m2-date">-</div>
+                <div class="mode-desc-text">境内94+境外40人/日。实测印证：双轨独立全速推进，打满全财年35,500总配额。</div>
+            </div>
+
+            <!-- Mode 1 -->
+            <div class="mode-card">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 1</span>
+                        <span class="rec-tag neutral">基准参考</span>
+                    </div>
+                    <div class="mode-title-text">128人/日 · 固定基准</div>
+                </div>
+                <div class="mode-date-val" id="m1-date">-</div>
+                <div class="mode-desc-text">固定产能不借调，节奏较保守，全财年略有1,198人未消化。</div>
+            </div>
+
+            <!-- Mode 3 -->
+            <div class="mode-card">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 3</span>
+                        <span class="rec-tag neutral">观察参考</span>
+                    </div>
+                    <div class="mode-title-text">T3单人优先并行</div>
+                </div>
+                <div class="mode-date-val" id="m3-date">-</div>
+                <div class="mode-desc-text">境外单人分得64%产能。当前实盘以T1冲刺为主，此模式作中远期参考。</div>
+            </div>
+
+            <!-- Mode 4 -->
+            <div class="mode-card obsolete">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 4</span>
+                        <span class="rec-tag obsolete">已落空 · 实测证伪</span>
+                    </div>
+                    <div class="mode-title-text" style="color:var(--text-muted);text-decoration:line-through;">单通道顺序 (已失效)</div>
+                </div>
+                <div class="mode-date-val" id="m4-date" style="text-decoration:line-through;color:var(--text-muted);">-</div>
+                <div class="mode-desc-text" style="color:var(--text-muted);">假定境内全清才轮到境外。实盘显示境外已大面积下签，此倒退模式彻底失效。</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Real-world Activity Feed -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">9月21日 ~ 9月22日 实盘批签追踪实录 (SmartVisaGuide)</h2>
+        </div>
+        <div class="feed-rows">
+            <!-- 9/22 Direct Grant & Priority -->
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">土木工程师 (Civil Engineer)</span>
+                    <span class="feed-sub">NSW 境外 · 2025-11-04 递交</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="feed-tag-dg">⚡ 免补料直签 (Direct Grant)</span>
+                    <span class="feed-status">9/22 下签 · Tier 1 破纪录</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">建筑项目经理 (Construction PM)</span>
+                    <span class="feed-sub">WA 境外 · 2025-06-29 递交</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;color:var(--text-muted);">无s56补料</span>
+                    <span class="feed-status">9/22 下签 · Tier 1 兑现</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">工程优先通道 (社区实报获批)</span>
+                    <span class="feed-sub">NSW 境外 · 2025-09-19 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/22 下签 · 吻合直签窗口</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">厨师 (Chef - TSE通道)</span>
+                    <span class="feed-sub">TAS 境内 · 2026-01-25 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/22 下签 · Tier 2 稳定推进</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">中学教师 (Secondary Teacher)</span>
+                    <span class="feed-sub">SA 境外 · 2025-11-23 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/21 下签 · Tier 1 教师批次</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">建筑绘图员 (Arch Draftsperson)</span>
+                    <span class="feed-sub">NSW 境外 · 2025-05-16 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/21 下签 · Tier 1 兑现</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Accordion -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">审理前置准备与注意事项</h2>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" onclick="toggleAcc(this)">
+                <span>1. 体检 (Medicals) 即将满 1 年是否需要主动重做？</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                不建议提前盲目重做。体检有效期为12个月。如果审到你的案子时体检过期，签证官会下发 s56 补料通知并给予 28 天窗口。收到正式通知后再预约体检，可避免白白产生二次费用。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" onclick="toggleAcc(this)">
+                <span>2. 澳洲 AFP 与国内无犯罪证明的有效期准备</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                澳洲联邦警局无犯罪证明 (AFP) 办理周期通常为 1-3 个工作日；国内公证大约需 1-2 周。建议在预估批签节点前 1-2 个月检查有效期即可。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" onclick="toggleAcc(this)">
+                <span>3. 搬家、换护照或变更邮箱的申报流程</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                请在 ImmiAccount 个人后台直接提交 Form 929（Update details），确保签证官发出的 s56 补料通知或获批准迁信能及时送达。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" onclick="toggleAcc(this)">
+                <span>4. 移民局批签发信时间习惯与查询频率</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                移民局通常在澳洲东部时间工作日上午9点至下午4点之间集中派发批签信。在无补料要求或个人信息变更的情况下，无需频繁刷新 ImmiAccount，避免触发系统安全验证锁定。
+            </div>
+        </div>
+    </section>
+
+    <!-- Global 25-Month Table Accordion -->
+    <section class="panel">
+        <div class="acc-trigger" onclick="toggleFullTable(this)" style="font-size:15px;">
+            <span>📊 展开 25个月 × 4模式 全局预测对照总表</span>
+            <span id="table-arrow">＋</span>
+        </div>
+        <div class="acc-body" id="full-table-content" style="display:none;margin-top:14px;">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lodged 月份</th>
+                            <th>Tier 1 优先</th>
+                            <th>Tier 2 境内</th>
+                            <th>Tier 3 境外单人</th>
+                            <th>Tier 4 境外带副申</th>
+                        </tr>
+                    </thead>
+                    <tbody id="full-table-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="action-row">
+        <button class="btn-primary" onclick="copyShareText()">复制我的批签预测结论</button>
+        <button class="btn-outline" onclick="window.print()">打印 / 导出为PDF</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>数据基准：澳洲内政部 FOI 官方底盘数据 (P+S 24,196人) ｜ 实施政策：MD122 Ministerial Direction</p>
+        <p>所有预测均基于历史消耗均速与配额数学模型情景测算，仅供移民规划与排期进度参考，不构成官方审批时限承诺。</p>
+    </footer>
+
+</div>
+
+<script>
+// --- EMBEDDED FORECAST DATA ---
+const DATA = {"months": ["<=2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04", "2027-05", "2027-06"], "counts": {"1": [87, 67, 6, 24, 29, 64, 112, 131, 156, 200, 199, 208, 169, 21, 2, 37, 97, 214, 372, 438, 518, 667, 664, 694, 565], "2": [0, 0, 0, 0, 0, 0, 0, 1227, 1452, 1866, 1860, 1943, 1581, 738, 73, 287, 348, 771, 1338, 1578, 1866, 2400, 2391, 2498, 2033], "3": [127, 97, 9, 35, 42, 93, 162, 191, 226, 290, 289, 302, 246, 30, 3, 12, 14, 31, 54, 64, 75, 97, 96, 101, 82], "4": [220, 170, 16, 61, 74, 164, 284, 335, 396, 510, 508, 531, 432, 52, 5, 20, 25, 55, 95, 112, 132, 170, 169, 177, 144]}, "m1": {"1": {"0": {"date": "2026-09-23", "fy": "FY27", "used_on": 7437, "used_off": 3185}, "1": {"date": "2026-09-25", "fy": "FY27", "used_on": 7617, "used_off": 3261}, "2": {"date": "2026-09-25", "fy": "FY27", "used_on": 7617, "used_off": 3261}, "3": {"date": "2026-09-25", "fy": "FY27", "used_on": 7617, "used_off": 3261}, "4": {"date": "2026-09-28", "fy": "FY27", "used_on": 7707, "used_off": 3299}, "5": {"date": "2026-09-30", "fy": "FY27", "used_on": 7887, "used_off": 3375}, "6": {"date": "2026-10-06", "fy": "FY27", "used_on": 8157, "used_off": 3489}, "7": {"date": "2026-10-09", "fy": "FY27", "used_on": 8427, "used_off": 3603}, "8": {"date": "2026-10-15", "fy": "FY27", "used_on": 8787, "used_off": 3755}, "9": {"date": "2026-10-23", "fy": "FY27", "used_on": 9327, "used_off": 3983}, "10": {"date": "2026-10-30", "fy": "FY27", "used_on": 9777, "used_off": 4173}, "11": {"date": "2026-11-06", "fy": "FY27", "used_on": 10227, "used_off": 4363}, "12": {"date": "2026-11-13", "fy": "FY27", "used_on": 10677, "used_off": 4553}, "13": {"date": "2026-11-13", "fy": "FY27", "used_on": 10677, "used_off": 4553}, "14": {"date": "2026-11-13", "fy": "FY27", "used_on": 10677, "used_off": 4553}, "15": {"date": "2026-11-16", "fy": "FY27", "used_on": 10767, "used_off": 4564}, "16": {"date": "2026-11-16", "fy": "FY27", "used_on": 10767, "used_off": 4564}, "17": {"date": "2026-12-03", "fy": "FY27", "used_on": 11937, "used_off": 5047}, "18": {"date": "2027-01-07", "fy": "FY27", "used_on": 13557, "used_off": 5731}, "19": {"date": "2027-02-05", "fy": "FY27", "used_on": 15357, "used_off": 6491}, "20": {"date": "2027-03-09", "fy": "FY27", "used_on": 17247, "used_off": 7289}, "21": {"date": "2027-04-09", "fy": "FY27", "used_on": 19137, "used_off": 8087}, "22": {"date": "2027-05-11", "fy": "FY27", "used_on": 21027, "used_off": 8885}, "23": {"date": "2027-06-09", "fy": "FY27", "used_on": 22827, "used_off": 9645}, "24": {"date": "2027-07-08", "fy": "FY28", "used_on": 540, "used_off": 190}}, "2": {"7": {"date": "2026-10-09", "fy": "FY27", "used_on": 8423, "used_off": 3565}, "8": {"date": "2026-11-04", "fy": "FY27", "used_on": 9962, "used_off": 4249}, "9": {"date": "2026-12-04", "fy": "FY27", "used_on": 12021, "used_off": 5085}, "10": {"date": "2027-01-19", "fy": "FY27", "used_on": 14216, "used_off": 6035}, "11": {"date": "2027-02-25", "fy": "FY27", "used_on": 16553, "used_off": 7023}, "12": {"date": "2027-04-12", "fy": "FY27", "used_on": 19200, "used_off": 8125}, "13": {"date": "2027-04-22", "fy": "FY27", "used_on": 19938, "used_off": 8429}, "14": {"date": "2027-04-23", "fy": "FY27", "used_on": 20011, "used_off": 8467}, "15": {"date": "2027-04-29", "fy": "FY27", "used_on": 20298, "used_off": 8581}, "16": {"date": "2027-05-14", "fy": "FY27", "used_on": 21244, "used_off": 8999}, "17": {"date": "2027-05-26", "fy": "FY27", "used_on": 22015, "used_off": 9303}, "18": {"date": "2027-06-29", "fy": "FY27", "used_on": 23978, "used_off": 10139}, "19": {"date": "2027-07-30", "fy": "FY28", "used_on": 1978, "used_off": 798}, "20": {"date": "2027-08-30", "fy": "FY28", "used_on": 3844, "used_off": 1596}, "21": {"date": "2027-10-07", "fy": "FY28", "used_on": 6244, "used_off": 2386}, "22": {"date": "2027-11-12", "fy": "FY28", "used_on": 8635, "used_off": 2386}, "23": {"date": "2027-12-22", "fy": "FY28", "used_on": 11133, "used_off": 2386}, "24": {"date": "2028-02-03", "fy": "FY28", "used_on": 13166, "used_off": 2386}}, "3": {"0": {"date": "2026-11-19", "fy": "FY27", "used_on": 11037, "used_off": 4691}, "1": {"date": "2026-11-24", "fy": "FY27", "used_on": 11307, "used_off": 4788}, "2": {"date": "2026-11-24", "fy": "FY27", "used_on": 11307, "used_off": 4797}, "3": {"date": "2026-11-25", "fy": "FY27", "used_on": 11397, "used_off": 4832}, "4": {"date": "2026-11-26", "fy": "FY27", "used_on": 11487, "used_off": 4874}, "5": {"date": "2026-11-30", "fy": "FY27", "used_on": 11667, "used_off": 4967}, "6": {"date": "2026-12-07", "fy": "FY27", "used_on": 12117, "used_off": 5150}, "7": {"date": "2026-12-14", "fy": "FY27", "used_on": 12567, "used_off": 5341}, "8": {"date": "2026-12-22", "fy": "FY27", "used_on": 13107, "used_off": 5567}, "9": {"date": "2027-01-13", "fy": "FY27", "used_on": 13917, "used_off": 5894}, "10": {"date": "2027-01-22", "fy": "FY27", "used_on": 14547, "used_off": 6183}, "11": {"date": "2027-02-05", "fy": "FY27", "used_on": 15357, "used_off": 6529}, "12": {"date": "2027-02-16", "fy": "FY27", "used_on": 15987, "used_off": 6775}, "13": {"date": "2027-02-17", "fy": "FY27", "used_on": 16077, "used_off": 6805}, "14": {"date": "2027-02-17", "fy": "FY27", "used_on": 16077, "used_off": 6808}, "15": {"date": "2027-02-17", "fy": "FY27", "used_on": 16077, "used_off": 6820}, "16": {"date": "2027-02-18", "fy": "FY27", "used_on": 16167, "used_off": 6834}, "17": {"date": "2027-02-18", "fy": "FY27", "used_on": 16167, "used_off": 6865}, "18": {"date": "2027-02-22", "fy": "FY27", "used_on": 16347, "used_off": 6919}, "19": {"date": "2027-02-23", "fy": "FY27", "used_on": 16437, "used_off": 6983}, "20": {"date": "2027-03-04", "fy": "FY27", "used_on": 17067, "used_off": 7226}, "21": {"date": "2027-04-07", "fy": "FY27", "used_on": 18957, "used_off": 8023}, "22": {"date": "2027-05-07", "fy": "FY27", "used_on": 20847, "used_off": 8819}, "23": {"date": "2027-06-07", "fy": "FY27", "used_on": 22647, "used_off": 9587}, "24": {"date": "2027-07-06", "fy": "FY28", "used_on": 360, "used_off": 138}}, "4": {"0": {"date": "2027-03-10", "fy": "FY27", "used_on": 17337, "used_off": 7330}, "1": {"date": "2027-03-16", "fy": "FY27", "used_on": 17697, "used_off": 7500}, "2": {"date": "2027-03-16", "fy": "FY27", "used_on": 17697, "used_off": 7516}, "3": {"date": "2027-03-18", "fy": "FY27", "used_on": 17877, "used_off": 7577}, "4": {"date": "2027-03-22", "fy": "FY27", "used_on": 18057, "used_off": 7651}, "5": {"date": "2027-03-30", "fy": "FY27", "used_on": 18417, "used_off": 7815}, "6": {"date": "2027-04-15", "fy": "FY27", "used_on": 19497, "used_off": 8263}, "7": {"date": "2027-04-29", "fy": "FY27", "used_on": 20307, "used_off": 8598}, "8": {"date": "2027-05-20", "fy": "FY27", "used_on": 21657, "used_off": 9156}, "9": {"date": "2027-06-17", "fy": "FY27", "used_on": 23277, "used_off": 9836}, "10": {"date": "2027-07-12", "fy": "FY28", "used_on": 720, "used_off": 267}, "11": {"date": "2027-07-29", "fy": "FY28", "used_on": 1890, "used_off": 798}, "12": {"date": "2027-08-16", "fy": "FY28", "used_on": 2970, "used_off": 1230}, "13": {"date": "2027-08-17", "fy": "FY28", "used_on": 3060, "used_off": 1282}, "14": {"date": "2027-08-17", "fy": "FY28", "used_on": 3060, "used_off": 1287}, "15": {"date": "2027-08-18", "fy": "FY28", "used_on": 3150, "used_off": 1307}, "16": {"date": "2027-08-19", "fy": "FY28", "used_on": 3240, "used_off": 1332}, "17": {"date": "2027-08-20", "fy": "FY28", "used_on": 3330, "used_off": 1387}, "18": {"date": "2027-08-24", "fy": "FY28", "used_on": 3510, "used_off": 1482}, "19": {"date": "2027-08-27", "fy": "FY28", "used_on": 3780, "used_off": 1594}, "20": {"date": "2027-09-02", "fy": "FY28", "used_on": 4140, "used_off": 1726}, "21": {"date": "2027-09-08", "fy": "FY28", "used_on": 4500, "used_off": 1896}, "22": {"date": "2027-09-15", "fy": "FY28", "used_on": 4950, "used_off": 2065}, "23": {"date": "2027-09-21", "fy": "FY28", "used_on": 5310, "used_off": 2242}, "24": {"date": "2027-09-27", "fy": "FY28", "used_on": 5670, "used_off": 2386}}}, "m2": {"1": {"0": {"date": "2026-09-23", "fy": "FY27", "used_on": 7449, "used_off": 3192}, "1": {"date": "2026-09-24", "fy": "FY27", "used_on": 7543, "used_off": 3232}, "2": {"date": "2026-09-24", "fy": "FY27", "used_on": 7543, "used_off": 3232}, "3": {"date": "2026-09-25", "fy": "FY27", "used_on": 7637, "used_off": 3273}, "4": {"date": "2026-09-28", "fy": "FY27", "used_on": 7731, "used_off": 3313}, "5": {"date": "2026-09-29", "fy": "FY27", "used_on": 7825, "used_off": 3353}, "6": {"date": "2026-10-02", "fy": "FY27", "used_on": 8108, "used_off": 3474}, "7": {"date": "2026-10-08", "fy": "FY27", "used_on": 8390, "used_off": 3595}, "8": {"date": "2026-10-14", "fy": "FY27", "used_on": 8766, "used_off": 3756}, "9": {"date": "2026-10-21", "fy": "FY27", "used_on": 9236, "used_off": 3958}, "10": {"date": "2026-10-28", "fy": "FY27", "used_on": 9707, "used_off": 4159}, "11": {"date": "2026-11-04", "fy": "FY27", "used_on": 10177, "used_off": 4361}, "12": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "13": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "14": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "15": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "16": {"date": "2026-11-12", "fy": "FY27", "used_on": 10741, "used_off": 4564}, "17": {"date": "2026-12-03", "fy": "FY27", "used_on": 12152, "used_off": 5167}, "18": {"date": "2027-01-07", "fy": "FY27", "used_on": 13845, "used_off": 5893}, "19": {"date": "2027-02-05", "fy": "FY27", "used_on": 15726, "used_off": 6699}, "20": {"date": "2027-03-05", "fy": "FY27", "used_on": 17607, "used_off": 7506}, "21": {"date": "2027-04-09", "fy": "FY27", "used_on": 19677, "used_off": 8392}, "22": {"date": "2027-05-11", "fy": "FY27", "used_on": 21652, "used_off": 9239}, "23": {"date": "2027-06-09", "fy": "FY27", "used_on": 23533, "used_off": 10045}, "24": {"date": "2027-07-08", "fy": "FY28", "used_on": 604, "used_off": 216}}, "2": {"7": {"date": "2026-10-09", "fy": "FY27", "used_on": 8423, "used_off": 3595}, "8": {"date": "2026-10-30", "fy": "FY27", "used_on": 9875, "used_off": 4200}, "9": {"date": "2026-11-30", "fy": "FY27", "used_on": 11828, "used_off": 5046}, "10": {"date": "2027-01-13", "fy": "FY27", "used_on": 14216, "used_off": 6054}, "11": {"date": "2027-02-18", "fy": "FY27", "used_on": 16553, "used_off": 7062}, "12": {"date": "2027-03-23", "fy": "FY27", "used_on": 18600, "used_off": 7949}, "13": {"date": "2027-04-14", "fy": "FY27", "used_on": 19938, "used_off": 8513}, "14": {"date": "2027-04-15", "fy": "FY27", "used_on": 20011, "used_off": 8554}, "15": {"date": "2027-04-20", "fy": "FY27", "used_on": 20298, "used_off": 8675}, "16": {"date": "2027-04-27", "fy": "FY27", "used_on": 20646, "used_off": 8836}, "17": {"date": "2027-05-17", "fy": "FY27", "used_on": 22015, "used_off": 9400}, "18": {"date": "2027-06-17", "fy": "FY27", "used_on": 23978, "used_off": 10247}, "19": {"date": "2027-07-19", "fy": "FY28", "used_on": 1215, "used_off": 517}, "20": {"date": "2027-08-12", "fy": "FY28", "used_on": 3081, "used_off": 1294}, "21": {"date": "2027-09-15", "fy": "FY28", "used_on": 5481, "used_off": 1951}, "22": {"date": "2027-10-20", "fy": "FY28", "used_on": 7872, "used_off": 1951}, "23": {"date": "2027-11-24", "fy": "FY28", "used_on": 10370, "used_off": 1951}, "24": {"date": "2027-12-22", "fy": "FY28", "used_on": 12403, "used_off": 1951}}, "3": {"0": {"date": "2026-11-17", "fy": "FY27", "used_on": 11023, "used_off": 4691}, "1": {"date": "2026-11-19", "fy": "FY27", "used_on": 11212, "used_off": 4788}, "2": {"date": "2026-11-19", "fy": "FY27", "used_on": 11212, "used_off": 4797}, "3": {"date": "2026-11-20", "fy": "FY27", "used_on": 11306, "used_off": 4832}, "4": {"date": "2026-11-23", "fy": "FY27", "used_on": 11400, "used_off": 4874}, "5": {"date": "2026-11-26", "fy": "FY27", "used_on": 11682, "used_off": 4967}, "6": {"date": "2026-12-02", "fy": "FY27", "used_on": 12058, "used_off": 5150}, "7": {"date": "2026-12-09", "fy": "FY27", "used_on": 12528, "used_off": 5341}, "8": {"date": "2026-12-16", "fy": "FY27", "used_on": 12999, "used_off": 5567}, "9": {"date": "2027-01-07", "fy": "FY27", "used_on": 13845, "used_off": 5894}, "10": {"date": "2027-01-18", "fy": "FY27", "used_on": 14504, "used_off": 6183}, "11": {"date": "2027-01-28", "fy": "FY27", "used_on": 15162, "used_off": 6485}, "12": {"date": "2027-02-08", "fy": "FY27", "used_on": 15820, "used_off": 6775}, "13": {"date": "2027-02-09", "fy": "FY27", "used_on": 15914, "used_off": 6805}, "14": {"date": "2027-02-09", "fy": "FY27", "used_on": 15914, "used_off": 6808}, "15": {"date": "2027-02-09", "fy": "FY27", "used_on": 15914, "used_off": 6820}, "16": {"date": "2027-02-10", "fy": "FY27", "used_on": 16009, "used_off": 6834}, "17": {"date": "2027-02-11", "fy": "FY27", "used_on": 16103, "used_off": 6865}, "18": {"date": "2027-02-12", "fy": "FY27", "used_on": 16197, "used_off": 6919}, "19": {"date": "2027-02-16", "fy": "FY27", "used_on": 16385, "used_off": 6983}, "20": {"date": "2027-03-04", "fy": "FY27", "used_on": 17513, "used_off": 7471}, "21": {"date": "2027-04-07", "fy": "FY27", "used_on": 19489, "used_off": 8315}, "22": {"date": "2027-05-07", "fy": "FY27", "used_on": 21464, "used_off": 9159}, "23": {"date": "2027-06-07", "fy": "FY27", "used_on": 23345, "used_off": 9973}, "24": {"date": "2027-07-06", "fy": "FY28", "used_on": 402, "used_off": 138}}, "4": {"0": {"date": "2027-02-23", "fy": "FY27", "used_on": 16855, "used_off": 7203}, "1": {"date": "2027-03-04", "fy": "FY27", "used_on": 17513, "used_off": 7500}, "2": {"date": "2027-03-05", "fy": "FY27", "used_on": 17607, "used_off": 7516}, "3": {"date": "2027-03-09", "fy": "FY27", "used_on": 17702, "used_off": 7577}, "4": {"date": "2027-03-11", "fy": "FY27", "used_on": 17890, "used_off": 7651}, "5": {"date": "2027-03-17", "fy": "FY27", "used_on": 18266, "used_off": 7815}, "6": {"date": "2027-03-30", "fy": "FY27", "used_on": 18924, "used_off": 8099}, "7": {"date": "2027-04-16", "fy": "FY27", "used_on": 20147, "used_off": 8598}, "8": {"date": "2027-04-30", "fy": "FY27", "used_on": 20994, "used_off": 8994}, "9": {"date": "2027-05-25", "fy": "FY27", "used_on": 22593, "used_off": 9666}, "10": {"date": "2027-06-21", "fy": "FY27", "used_on": 24192, "used_off": 10344}, "11": {"date": "2027-07-13", "fy": "FY28", "used_on": 905, "used_off": 363}, "12": {"date": "2027-07-27", "fy": "FY28", "used_on": 1912, "used_off": 795}, "13": {"date": "2027-07-28", "fy": "FY28", "used_on": 2012, "used_off": 847}, "14": {"date": "2027-07-28", "fy": "FY28", "used_on": 2012, "used_off": 852}, "15": {"date": "2027-07-29", "fy": "FY28", "used_on": 2113, "used_off": 872}, "16": {"date": "2027-07-29", "fy": "FY28", "used_on": 2113, "used_off": 897}, "17": {"date": "2027-08-02", "fy": "FY28", "used_on": 2314, "used_off": 952}, "18": {"date": "2027-08-04", "fy": "FY28", "used_on": 2515, "used_off": 1047}, "19": {"date": "2027-08-06", "fy": "FY28", "used_on": 2716, "used_off": 1159}, "20": {"date": "2027-08-11", "fy": "FY28", "used_on": 3018, "used_off": 1291}, "21": {"date": "2027-08-17", "fy": "FY28", "used_on": 3421, "used_off": 1461}, "22": {"date": "2027-08-23", "fy": "FY28", "used_on": 3823, "used_off": 1630}, "23": {"date": "2027-08-27", "fy": "FY28", "used_on": 4226, "used_off": 1807}, "24": {"date": "2027-09-02", "fy": "FY28", "used_on": 4628, "used_off": 1951}}}, "m3": {"1": {"0": {"date": "2026-09-23", "fy": "FY27", "used_on": 7449, "used_off": 3192}, "1": {"date": "2026-09-24", "fy": "FY27", "used_on": 7543, "used_off": 3232}, "2": {"date": "2026-09-24", "fy": "FY27", "used_on": 7543, "used_off": 3232}, "3": {"date": "2026-09-25", "fy": "FY27", "used_on": 7637, "used_off": 3273}, "4": {"date": "2026-09-28", "fy": "FY27", "used_on": 7731, "used_off": 3313}, "5": {"date": "2026-09-29", "fy": "FY27", "used_on": 7825, "used_off": 3353}, "6": {"date": "2026-10-02", "fy": "FY27", "used_on": 8108, "used_off": 3474}, "7": {"date": "2026-10-08", "fy": "FY27", "used_on": 8390, "used_off": 3595}, "8": {"date": "2026-10-14", "fy": "FY27", "used_on": 8766, "used_off": 3756}, "9": {"date": "2026-10-21", "fy": "FY27", "used_on": 9236, "used_off": 3958}, "10": {"date": "2026-10-28", "fy": "FY27", "used_on": 9707, "used_off": 4159}, "11": {"date": "2026-11-04", "fy": "FY27", "used_on": 10177, "used_off": 4361}, "12": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "13": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "14": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "15": {"date": "2026-11-11", "fy": "FY27", "used_on": 10647, "used_off": 4563}, "16": {"date": "2026-11-12", "fy": "FY27", "used_on": 10741, "used_off": 4564}, "17": {"date": "2026-12-03", "fy": "FY27", "used_on": 12152, "used_off": 5167}, "18": {"date": "2027-01-07", "fy": "FY27", "used_on": 13845, "used_off": 5893}, "19": {"date": "2027-02-05", "fy": "FY27", "used_on": 15726, "used_off": 6699}, "20": {"date": "2027-03-05", "fy": "FY27", "used_on": 17607, "used_off": 7506}, "21": {"date": "2027-04-09", "fy": "FY27", "used_on": 19677, "used_off": 8392}, "22": {"date": "2027-05-11", "fy": "FY27", "used_on": 21652, "used_off": 9239}, "23": {"date": "2027-06-09", "fy": "FY27", "used_on": 23533, "used_off": 10045}, "24": {"date": "2027-07-08", "fy": "FY28", "used_on": 604, "used_off": 216}}, "2": {"7": {"date": "2026-10-09", "fy": "FY27", "used_on": 8423, "used_off": 3595}, "8": {"date": "2026-10-30", "fy": "FY27", "used_on": 9875, "used_off": 4200}, "9": {"date": "2026-11-30", "fy": "FY27", "used_on": 11828, "used_off": 5046}, "10": {"date": "2027-01-13", "fy": "FY27", "used_on": 14216, "used_off": 6054}, "11": {"date": "2027-02-18", "fy": "FY27", "used_on": 16553, "used_off": 7062}, "12": {"date": "2027-03-23", "fy": "FY27", "used_on": 18600, "used_off": 7949}, "13": {"date": "2027-04-14", "fy": "FY27", "used_on": 19938, "used_off": 8513}, "14": {"date": "2027-04-15", "fy": "FY27", "used_on": 20011, "used_off": 8554}, "15": {"date": "2027-04-20", "fy": "FY27", "used_on": 20298, "used_off": 8675}, "16": {"date": "2027-04-27", "fy": "FY27", "used_on": 20646, "used_off": 8836}, "17": {"date": "2027-05-17", "fy": "FY27", "used_on": 22015, "used_off": 9400}, "18": {"date": "2027-06-17", "fy": "FY27", "used_on": 23978, "used_off": 10247}, "19": {"date": "2027-07-19", "fy": "FY28", "used_on": 1215, "used_off": 517}, "20": {"date": "2027-08-12", "fy": "FY28", "used_on": 3081, "used_off": 1294}, "21": {"date": "2027-09-15", "fy": "FY28", "used_on": 5481, "used_off": 1951}, "22": {"date": "2027-10-20", "fy": "FY28", "used_on": 7872, "used_off": 1951}, "23": {"date": "2027-11-24", "fy": "FY28", "used_on": 10370, "used_off": 1951}, "24": {"date": "2027-12-22", "fy": "FY28", "used_on": 12403, "used_off": 1951}}, "3": {"0": {"date": "2026-11-17", "fy": "FY27", "used_on": 11023, "used_off": 4691}, "1": {"date": "2026-11-23", "fy": "FY27", "used_on": 11400, "used_off": 4846}, "2": {"date": "2026-11-23", "fy": "FY27", "used_on": 11400, "used_off": 4855}, "3": {"date": "2026-11-24", "fy": "FY27", "used_on": 11494, "used_off": 4905}, "4": {"date": "2026-11-26", "fy": "FY27", "used_on": 11682, "used_off": 4976}, "5": {"date": "2026-12-02", "fy": "FY27", "used_on": 12058, "used_off": 5140}, "6": {"date": "2026-12-10", "fy": "FY27", "used_on": 12622, "used_off": 5389}, "7": {"date": "2026-12-22", "fy": "FY27", "used_on": 13375, "used_off": 5696}, "8": {"date": "2027-01-13", "fy": "FY27", "used_on": 14221, "used_off": 6077}, "9": {"date": "2027-02-02", "fy": "FY27", "used_on": 15444, "used_off": 6585}, "10": {"date": "2027-02-17", "fy": "FY27", "used_on": 16479, "used_off": 7032}, "11": {"date": "2027-03-09", "fy": "FY27", "used_on": 17702, "used_off": 7556}, "12": {"date": "2027-03-22", "fy": "FY27", "used_on": 18548, "used_off": 7933}, "13": {"date": "2027-03-24", "fy": "FY27", "used_on": 18736, "used_off": 7992}, "14": {"date": "2027-03-24", "fy": "FY27", "used_on": 18736, "used_off": 7995}, "15": {"date": "2027-03-24", "fy": "FY27", "used_on": 18736, "used_off": 8007}, "16": {"date": "2027-03-25", "fy": "FY27", "used_on": 18830, "used_off": 8035}, "17": {"date": "2027-03-30", "fy": "FY27", "used_on": 18924, "used_off": 8081}, "18": {"date": "2027-04-05", "fy": "FY27", "used_on": 19301, "used_off": 8236}, "19": {"date": "2027-04-07", "fy": "FY27", "used_on": 19489, "used_off": 8329}, "20": {"date": "2027-04-12", "fy": "FY27", "used_on": 19771, "used_off": 8447}, "21": {"date": "2027-04-16", "fy": "FY27", "used_on": 20147, "used_off": 8602}, "22": {"date": "2027-05-10", "fy": "FY27", "used_on": 21558, "used_off": 9208}, "23": {"date": "2027-06-08", "fy": "FY27", "used_on": 23439, "used_off": 10021}, "24": {"date": "2027-07-07", "fy": "FY28", "used_on": 503, "used_off": 180}}, "4": {"0": {"date": "2026-12-08", "fy": "FY27", "used_on": 12434, "used_off": 5324}, "1": {"date": "2027-01-05", "fy": "FY27", "used_on": 13657, "used_off": 5843}, "2": {"date": "2027-01-06", "fy": "FY27", "used_on": 13751, "used_off": 5884}, "3": {"date": "2027-01-12", "fy": "FY27", "used_on": 14127, "used_off": 6049}, "4": {"date": "2027-01-19", "fy": "FY27", "used_on": 14598, "used_off": 6252}, "5": {"date": "2027-02-08", "fy": "FY27", "used_on": 15820, "used_off": 6767}, "6": {"date": "2027-03-09", "fy": "FY27", "used_on": 17702, "used_off": 7586}, "7": {"date": "2027-04-15", "fy": "FY27", "used_on": 20053, "used_off": 8590}, "8": {"date": "2027-04-30", "fy": "FY27", "used_on": 20994, "used_off": 8994}, "9": {"date": "2027-05-25", "fy": "FY27", "used_on": 22593, "used_off": 9666}, "10": {"date": "2027-06-21", "fy": "FY27", "used_on": 24192, "used_off": 10344}, "11": {"date": "2027-07-13", "fy": "FY28", "used_on": 905, "used_off": 363}, "12": {"date": "2027-07-27", "fy": "FY28", "used_on": 1912, "used_off": 795}, "13": {"date": "2027-07-28", "fy": "FY28", "used_on": 2012, "used_off": 847}, "14": {"date": "2027-07-28", "fy": "FY28", "used_on": 2012, "used_off": 852}, "15": {"date": "2027-07-29", "fy": "FY28", "used_on": 2113, "used_off": 872}, "16": {"date": "2027-07-29", "fy": "FY28", "used_on": 2113, "used_off": 897}, "17": {"date": "2027-08-02", "fy": "FY28", "used_on": 2314, "used_off": 952}, "18": {"date": "2027-08-04", "fy": "FY28", "used_on": 2515, "used_off": 1047}, "19": {"date": "2027-08-06", "fy": "FY28", "used_on": 2716, "used_off": 1159}, "20": {"date": "2027-08-11", "fy": "FY28", "used_on": 3018, "used_off": 1291}, "21": {"date": "2027-08-17", "fy": "FY28", "used_on": 3421, "used_off": 1461}, "22": {"date": "2027-08-23", "fy": "FY28", "used_on": 3823, "used_off": 1630}, "23": {"date": "2027-08-27", "fy": "FY28", "used_on": 4226, "used_off": 1807}, "24": {"date": "2027-09-02", "fy": "FY28", "used_on": 4628, "used_off": 1951}}}, "m4": {"1": {"0": {"date": "2026-09-21", "fy": "FY27", "used_on": 7167, "used_off": 3158}, "1": {"date": "2026-09-22", "fy": "FY27", "used_on": 7167, "used_off": 3225}, "2": {"date": "2026-09-22", "fy": "FY27", "used_on": 7167, "used_off": 3231}, "3": {"date": "2026-09-22", "fy": "FY27", "used_on": 7167, "used_off": 3255}, "4": {"date": "2026-09-22", "fy": "FY27", "used_on": 7167, "used_off": 3284}, "5": {"date": "2026-09-23", "fy": "FY27", "used_on": 7167, "used_off": 3348}, "6": {"date": "2026-09-24", "fy": "FY27", "used_on": 7167, "used_off": 3460}, "7": {"date": "2026-09-25", "fy": "FY27", "used_on": 7167, "used_off": 3591}, "8": {"date": "2026-09-28", "fy": "FY27", "used_on": 7167, "used_off": 3747}, "9": {"date": "2026-09-29", "fy": "FY27", "used_on": 7167, "used_off": 3947}, "10": {"date": "2026-10-01", "fy": "FY27", "used_on": 7167, "used_off": 4146}, "11": {"date": "2026-10-06", "fy": "FY27", "used_on": 7167, "used_off": 4354}, "12": {"date": "2026-10-07", "fy": "FY27", "used_on": 7167, "used_off": 4523}, "13": {"date": "2026-10-07", "fy": "FY27", "used_on": 7167, "used_off": 4544}, "14": {"date": "2026-10-07", "fy": "FY27", "used_on": 7167, "used_off": 4546}, "15": {"date": "2026-10-07", "fy": "FY27", "used_on": 7196, "used_off": 4554}, "16": {"date": "2026-11-02", "fy": "FY27", "used_on": 9483, "used_off": 4564}, "17": {"date": "2026-12-02", "fy": "FY27", "used_on": 12267, "used_off": 4585}, "18": {"date": "2027-01-06", "fy": "FY27", "used_on": 14564, "used_off": 4622}, "19": {"date": "2027-02-04", "fy": "FY27", "used_on": 17018, "used_off": 4666}, "20": {"date": "2027-03-05", "fy": "FY27", "used_on": 19606, "used_off": 4718}, "21": {"date": "2027-04-08", "fy": "FY27", "used_on": 22248, "used_off": 4785}, "22": {"date": "2027-05-10", "fy": "FY27", "used_on": 24867, "used_off": 4851}, "23": {"date": "2027-06-08", "fy": "FY27", "used_on": 25492, "used_off": 6816}, "24": {"date": "2027-07-07", "fy": "FY28", "used_on": 508, "used_off": 56}}, "2": {"7": {"date": "2026-10-21", "fy": "FY27", "used_on": 8423, "used_off": 4554}, "8": {"date": "2026-11-06", "fy": "FY27", "used_on": 9962, "used_off": 4564}, "9": {"date": "2026-11-27", "fy": "FY27", "used_on": 11828, "used_off": 4564}, "10": {"date": "2026-12-21", "fy": "FY27", "used_on": 13881, "used_off": 4585}, "11": {"date": "2027-01-25", "fy": "FY27", "used_on": 16159, "used_off": 4622}, "12": {"date": "2027-02-17", "fy": "FY27", "used_on": 18134, "used_off": 4666}, "13": {"date": "2027-02-24", "fy": "FY27", "used_on": 18872, "used_off": 4666}, "14": {"date": "2027-02-25", "fy": "FY27", "used_on": 18945, "used_off": 4666}, "15": {"date": "2027-03-05", "fy": "FY27", "used_on": 19698, "used_off": 4718}, "16": {"date": "2027-03-11", "fy": "FY27", "used_on": 20046, "used_off": 4718}, "17": {"date": "2027-03-19", "fy": "FY27", "used_on": 20817, "used_off": 4718}, "18": {"date": "2027-04-14", "fy": "FY27", "used_on": 22755, "used_off": 4785}, "19": {"date": "2027-07-07", "fy": "FY28", "used_on": 572, "used_off": 56}, "20": {"date": "2027-07-28", "fy": "FY28", "used_on": 2438, "used_off": 56}, "21": {"date": "2027-08-24", "fy": "FY28", "used_on": 4838, "used_off": 56}, "22": {"date": "2027-09-17", "fy": "FY28", "used_on": 7230, "used_off": 56}, "23": {"date": "2027-10-18", "fy": "FY28", "used_on": 9728, "used_off": 56}, "24": {"date": "2027-11-09", "fy": "FY28", "used_on": 11760, "used_off": 56}}, "3": {"0": {"date": "2027-05-11", "fy": "FY27", "used_on": 24867, "used_off": 4978}, "1": {"date": "2027-05-11", "fy": "FY27", "used_on": 24867, "used_off": 5075}, "2": {"date": "2027-05-12", "fy": "FY27", "used_on": 24867, "used_off": 5084}, "3": {"date": "2027-05-12", "fy": "FY27", "used_on": 24867, "used_off": 5119}, "4": {"date": "2027-05-12", "fy": "FY27", "used_on": 24867, "used_off": 5161}, "5": {"date": "2027-05-13", "fy": "FY27", "used_on": 24867, "used_off": 5254}, "6": {"date": "2027-05-14", "fy": "FY27", "used_on": 24867, "used_off": 5416}, "7": {"date": "2027-05-18", "fy": "FY27", "used_on": 24867, "used_off": 5607}, "8": {"date": "2027-05-19", "fy": "FY27", "used_on": 24867, "used_off": 5833}, "9": {"date": "2027-05-24", "fy": "FY27", "used_on": 24867, "used_off": 6123}, "10": {"date": "2027-05-26", "fy": "FY27", "used_on": 24867, "used_off": 6412}, "11": {"date": "2027-05-28", "fy": "FY27", "used_on": 24867, "used_off": 6714}, "12": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7029}, "13": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7059}, "14": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7062}, "15": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7074}, "16": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7088}, "17": {"date": "2027-06-10", "fy": "FY27", "used_on": 25492, "used_off": 7119}, "18": {"date": "2027-06-11", "fy": "FY27", "used_on": 25492, "used_off": 7173}, "19": {"date": "2027-06-11", "fy": "FY27", "used_on": 25492, "used_off": 7237}, "20": {"date": "2027-06-15", "fy": "FY27", "used_on": 25492, "used_off": 7312}, "21": {"date": "2027-06-16", "fy": "FY27", "used_on": 25492, "used_off": 7409}, "22": {"date": "2027-06-16", "fy": "FY27", "used_on": 25492, "used_off": 7505}, "23": {"date": "2027-06-17", "fy": "FY27", "used_on": 25492, "used_off": 7606}, "24": {"date": "2027-11-09", "fy": "FY28", "used_on": 11760, "used_off": 138}}, "4": {"0": {"date": "2027-06-21", "fy": "FY27", "used_on": 25492, "used_off": 7826}, "1": {"date": "2027-06-22", "fy": "FY27", "used_on": 25492, "used_off": 7996}, "2": {"date": "2027-06-22", "fy": "FY27", "used_on": 25492, "used_off": 8012}, "3": {"date": "2027-06-23", "fy": "FY27", "used_on": 25492, "used_off": 8073}, "4": {"date": "2027-06-23", "fy": "FY27", "used_on": 25492, "used_off": 8147}, "5": {"date": "2027-06-25", "fy": "FY27", "used_on": 25492, "used_off": 8311}, "6": {"date": "2027-06-29", "fy": "FY27", "used_on": 25492, "used_off": 8595}, "7": {"date": "2027-11-10", "fy": "FY28", "used_on": 11760, "used_off": 258}, "8": {"date": "2027-11-15", "fy": "FY28", "used_on": 11760, "used_off": 654}, "9": {"date": "2027-11-19", "fy": "FY28", "used_on": 11760, "used_off": 1164}, "10": {"date": "2027-11-25", "fy": "FY28", "used_on": 11760, "used_off": 1672}, "11": {"date": "2027-12-02", "fy": "FY28", "used_on": 11760, "used_off": 2204}, "12": {"date": "2027-12-07", "fy": "FY28", "used_on": 11760, "used_off": 2636}, "13": {"date": "2027-12-07", "fy": "FY28", "used_on": 11760, "used_off": 2688}, "14": {"date": "2027-12-07", "fy": "FY28", "used_on": 11760, "used_off": 2692}, "15": {"date": "2027-12-08", "fy": "FY28", "used_on": 11760, "used_off": 2712}, "16": {"date": "2027-12-08", "fy": "FY28", "used_on": 11760, "used_off": 2738}, "17": {"date": "2027-12-08", "fy": "FY28", "used_on": 11760, "used_off": 2792}, "18": {"date": "2027-12-09", "fy": "FY28", "used_on": 11760, "used_off": 2888}, "19": {"date": "2027-12-10", "fy": "FY28", "used_on": 11760, "used_off": 3000}, "20": {"date": "2027-12-13", "fy": "FY28", "used_on": 11760, "used_off": 3132}, "21": {"date": "2027-12-14", "fy": "FY28", "used_on": 11760, "used_off": 3302}, "22": {"date": "2027-12-15", "fy": "FY28", "used_on": 11760, "used_off": 3470}, "23": {"date": "2027-12-17", "fy": "FY28", "used_on": 11760, "used_off": 3648}, "24": {"date": "2027-12-20", "fy": "FY28", "used_on": 11760, "used_off": 3792}}}};
+
+const months = DATA.months;
+const today = new Date(2026, 8, 22); // Current baseline: 2026-09-22
+
+// Initialize Dropdown
+function initSelect() {
+    const select = document.getElementById('lodged-select');
+    months.forEach((m, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = m.startsWith('<=') ? '2025年06月及以前 (旧案积压)' : m.replace('-', '年') + '月';
+        if (m === '2026-01') opt.selected = true;
+        select.appendChild(opt);
+    });
+}
+
+// Determine Tier
+function getTier(location, occ, family) {
+    if (occ === 'priority') return 1;
+    if (location === 'onshore') return 2;
+    if (family === 'single') return 3;
+    return 4;
+}
+
+// Parse string to Date
+function parseDate(dateStr) {
+    if (!dateStr || dateStr === '-') return null;
+    const p = dateStr.split('-');
+    return new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+}
+
+// Working Days Count
+function countWorkdays(start, end) {
+    if (start >= end) return 0;
+    let count = 0;
+    let cur = new Date(start.getTime());
+    while (cur < end) {
+        cur.setDate(cur.getDate() + 1);
+        const day = cur.getDay();
+        if (day !== 0 && day !== 6) count++;
+    }
+    return count;
+}
+
+function subtractWorkdays(startDate, numDays) {
+    let d = new Date(startDate.getTime());
+    let counted = 0;
+    while (counted < numDays) {
+        d.setDate(d.getDate() - 1);
+        const day = d.getDay();
+        if (day !== 0 && day !== 6) counted++;
+    }
+    return d;
+}
+
+function formatDateStr(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+// Main Calculation
+function calculateForecast() {
+    const mIdx = parseInt(document.getElementById('lodged-select').value);
+    const location = document.querySelector('input[name="location"]:checked').value;
+    const occ = document.querySelector('input[name="occupation"]:checked').value;
+    const family = document.querySelector('input[name="family"]:checked').value;
+
+    const tier = getTier(location, occ, family);
+    updateTierStrip(tier);
+
+    const monthLabel = months[mIdx];
+    const isClearedT2 = (tier === 2 && mIdx < 7);
+
+    const m1_info = DATA.m1[tier][mIdx];
+    const m2_info = DATA.m2[tier][mIdx];
+    const m3_info = DATA.m3[tier][mIdx];
+    const m4_info = DATA.m4[tier][mIdx];
+
+    const m1_date = m1_info ? m1_info.date : '-';
+    const m2_date = m2_info ? m2_info.date : '-';
+    const m3_date = m3_info ? m3_info.date : '-';
+    const m4_date = m4_info ? m4_info.date : '-';
+
+    document.getElementById('m1-date').textContent = isClearedT2 ? 'MD119已完成' : m1_date;
+    document.getElementById('m2-date').textContent = isClearedT2 ? 'MD119已完成' : m2_date;
+    document.getElementById('m3-date').textContent = isClearedT2 ? 'MD119已完成' : m3_date;
+    document.getElementById('m4-date').textContent = isClearedT2 ? 'MD119已完成' : m4_date;
+
+    const grantDisplay = document.getElementById('grant-date-display');
+    const daysEl = document.getElementById('days-remaining');
+    const workdaysEl = document.getElementById('workdays-remaining');
+    const fyEl = document.getElementById('fy-label');
+    const barEl = document.getElementById('progress-bar');
+    const badgeEl = document.getElementById('progress-badge');
+    const pctTextEl = document.getElementById('progress-pct-text');
+    const labelStart = document.getElementById('label-start');
+    const labelEnd = document.getElementById('label-end');
+    const dgCard = document.getElementById('direct-grant-card');
+    const dgText = document.getElementById('dg-text');
+
+    // Parse applicant lodgement date
+    let lDate;
+    if (monthLabel.startsWith('<=')) {
+        lDate = new Date(2025, 4, 1); // 2025-05 benchmark
+        labelStart.textContent = '递交申请 (≤2025-06)';
+    } else {
+        const parts = monthLabel.split('-');
+        lDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, 1);
+        labelStart.textContent = '递交申请 (' + monthLabel + ')';
+    }
+
+    if (isClearedT2) {
+        grantDisplay.textContent = 'MD119 阶段已审理完成';
+        grantDisplay.className = 'hero-date cleared';
+        daysEl.textContent = '0 天 (在池中)';
+        workdaysEl.textContent = '等待系统发信';
+        fyEl.textContent = 'FY27 境内';
+
+        barEl.style.width = '100%';
+        barEl.className = 'progress-bar complete';
+        badgeEl.className = 'progress-badge complete';
+        pctTextEl.textContent = '已完成 100%';
+        labelEnd.textContent = '审理完毕 (池中待信)';
+
+        dgCard.style.display = 'none';
+    } else if (m2_date && m2_date !== '-') {
+        grantDisplay.textContent = m2_date;
+        grantDisplay.className = 'hero-date';
+
+        const gDate = parseDate(m2_date);
+        const diffTime = gDate - today;
+        const diffDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+        const workdays = countWorkdays(today, gDate);
+
+        daysEl.textContent = diffDays + ' 天';
+        workdaysEl.textContent = workdays + ' 个工作日';
+        fyEl.textContent = m2_info.fy + (tier === 1 ? (location === 'onshore' ? ' 境内' : ' 境外') : (tier === 2 ? ' 境内' : ' 境外'));
+
+        // Precise percentage calculation based on actual timeline
+        const totalSpan = gDate.getTime() - lDate.getTime();
+        const elapsed = Math.max(0, today.getTime() - lDate.getTime());
+        let pct = Math.round((elapsed / totalSpan) * 100);
+        pct = Math.max(8, Math.min(99, pct));
+
+        barEl.style.width = pct + '%';
+        if (pct >= 90) {
+            barEl.className = 'progress-bar complete';
+            badgeEl.className = 'progress-badge complete';
+            pctTextEl.textContent = '临近获批 · 已完成 ' + pct + '%';
+        } else {
+            barEl.className = 'progress-bar';
+            badgeEl.className = 'progress-badge';
+            pctTextEl.textContent = '排期已完成 ' + pct + '%';
+        }
+
+        labelEnd.textContent = '预计获批 (' + m2_date + ')';
+
+        // Direct Grant Fast-track Window
+        dgCard.style.display = 'flex';
+        if (gDate <= today) {
+            dgText.innerHTML = '该月份已整体处于<strong>免补料直签 (Direct Grant) 现实验证窗口</strong>。近期 9.21~9.22 密集出现的多例无补料直签即印证了先锋放量。';
+        } else {
+            const earlyD = subtractWorkdays(gDate, 7);
+            const lateD = subtractWorkdays(gDate, 3);
+            const earlyStr = formatDateStr(earlyD);
+            const lateStr = formatDateStr(lateD);
+            dgText.innerHTML = '免补料直签 (Direct Grant) 先锋窗口：若材料齐全无需s56补料，预计可提前至 <strong class="dg-date-highlight">' + earlyStr + ' ~ ' + lateStr + '</strong> 率先突围下签！';
+        }
+    } else {
+        grantDisplay.textContent = '待排期';
+        daysEl.textContent = '-';
+        workdaysEl.textContent = '-';
+        fyEl.textContent = '-';
+        barEl.style.width = '10%';
+        barEl.className = 'progress-bar';
+        badgeEl.className = 'progress-badge';
+        pctTextEl.textContent = '排期中 10%';
+        labelEnd.textContent = '预计获批';
+
+        dgCard.style.display = 'none';
+    }
+
+    // Update Mental Massage & Encouragement Text
+    updateBlessingMsg(tier, isClearedT2);
+}
+
+function updateTierStrip(tier) {
+    const strip = document.getElementById('tier-strip');
+    const tag = document.getElementById('tier-tag');
+    const name = document.getElementById('tier-name');
+    const cap = document.getElementById('tier-caption');
+
+    strip.className = 'tier-strip t' + tier;
+    tag.className = 'tier-tag t' + tier;
+    tag.textContent = 'Tier ' + tier;
+
+    if (tier === 1) {
+        name.textContent = '全球优先职业赛道 (Tier 1)';
+        cap.textContent = '无论境内或境外，优先职业均列为第一优先级，当前正全速集中清理。';
+    } else if (tier === 2) {
+        name.textContent = '境内非优先职业赛道 (Tier 2)';
+        cap.textContent = '澳洲境内非优先通道，占用境内独立流水线（~94人/日），大盘扎实平稳。';
+    } else if (tier === 3) {
+        name.textContent = '境外单人非优先赛道 (Tier 3)';
+        cap.textContent = '境外单人申请（无副申配额负担），优先级高于带副申，大幅提前出签。';
+    } else {
+        name.textContent = '境外带副申非优先赛道 (Tier 4)';
+        cap.textContent = '境外家庭类申请，顺次消化，模型测算2027年上半年配额依然有席位。';
+    }
+}
+
+// Update Tailored Mental Massage & Encouragement (No Title)
+function updateBlessingMsg(tier, isClearedT2) {
+    const el = document.getElementById('blessing-msg');
+    let text = '';
+    if (isClearedT2) {
+        text = '<strong>官方流水线已全部审毕。</strong> 你的递交批次在 MD119 阶段已经全额推平。若目前暂未收信，大多属于材料最终复核、体检补办或系统发信排队。请保持电话与邮箱畅通，静候好消息。';
+    } else if (tier === 1) {
+        text = '<strong>优先职业正处全速放量期。</strong> 9.21~9.22 境外土木工程、建筑项目经理、绘图员、教师等连续两天密集放量，无补料个案更已突围至 2025年11月直签。你的材料正处在最高优先通道，胜利近在咫尺，安心做好生活与登陆规划。';
+    } else if (tier === 2) {
+        text = '<strong>境内基本盘极其稳固。</strong> 境内年配额高达 24,850 人，流水线每天稳定吞吐近百人，9.21~9.22 连续出现 1月下旬递交的下签（如Chef等）。你的排队序号非常靠前，节奏健康，安心享受在澳工作与生活。';
+    } else if (tier === 3) {
+        text = '<strong>单人赛道迎来制度红利。</strong> MD122 设立 Tier 3 让你彻底脱离了家庭案的副申人头挤占，占用配额极少。在 11 月中下旬境外优先清空后将迎来加速放量，好饭不怕晚，属于你的高光就在眼前。';
+    } else {
+        text = '<strong>家庭同行是长远的依靠。</strong> 虽因副申人头拉长了整体消化周期，但客观数据粉碎了“无限期搁置”的恐慌谣言——2027上半年配额依然有充裕席位。稳住心态，全家顺利登陆那一刻，一切等待都将值得。';
+    }
+    el.innerHTML = text;
+}
+
+// --- PURE INLINE ZERO-DEPENDENCY CONFETTI ---
+function runInlineConfetti() {
+    let canvas = document.getElementById('confetti-canvas');
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.id = 'confetti-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '9999';
+        document.body.appendChild(canvas);
+    }
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+    const colors = ['#16A34A', '#2563EB', '#D97706', '#9333EA', '#059669', '#E11D48', '#FFD700'];
+    const particles = [];
+    for (let i = 0; i < 90; i++) {
+        particles.push({
+            x: window.innerWidth * (0.3 + Math.random() * 0.4),
+            y: window.innerHeight * 0.55,
+            vx: (Math.random() - 0.5) * 16,
+            vy: -Math.random() * 18 - 8,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rSpeed: (Math.random() - 0.5) * 12,
+            life: 1
+        });
+    }
+    let animId;
+    function frame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.5;
+            p.vx *= 0.98;
+            p.rotation += p.rSpeed;
+            p.life -= 0.012;
+            if (p.life > 0) {
+                alive = true;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(0, p.life);
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                ctx.restore();
+            }
+        });
+        if (alive) {
+            animId = requestAnimationFrame(frame);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    frame();
+}
+
+// Koi Blessing Trigger
+const koiBlessings = [
+    "🎉 锦鲤显灵！测算显示你的案子排期稳步推进，祝你早日直签无s56！",
+    "✨ 鸿运当头！你的排期节点平稳可期，获批就在前方，心态放平！",
+    "🐟 好事花生！大吉大利，签证官正有序审理，期待你的获批通知！",
+    "🌈 愿望送达！生活大于签证，专注当下每一天，顺风顺水必拿PR！",
+    "🍀 锦鲤护体！坚持终有回响，祝你与家人如期顺利登陆澳洲！"
+];
+
+function triggerKoiBlessing() {
+    runInlineConfetti();
+    const fb = document.getElementById('koi-feedback');
+    const b = koiBlessings[Math.floor(Math.random() * koiBlessings.length)];
+    fb.textContent = b;
+    fb.className = 'koi-feedback visible';
+}
+
+// Accordion Toggle
+function toggleAcc(el) {
+    const body = el.nextElementSibling;
+    const arrow = el.querySelector('.acc-arrow');
+    const isOpen = body.style.display === 'block';
+    body.style.display = isOpen ? 'none' : 'block';
+    arrow.textContent = isOpen ? '＋' : '－';
+}
+
+// Full Table Toggle
+function toggleFullTable(el) {
+    const body = document.getElementById('full-table-content');
+    const arrow = document.getElementById('table-arrow');
+    const isOpen = body.style.display === 'block';
+    body.style.display = isOpen ? 'none' : 'block';
+    arrow.textContent = isOpen ? '＋' : '－';
+    if (!isOpen && !document.getElementById('full-table-body').children.length) {
+        buildFullTable();
+    }
+}
+
+function buildFullTable() {
+    const tbody = document.getElementById('full-table-body');
+    tbody.innerHTML = '';
+    months.forEach((m, idx) => {
+        const tr = document.createElement('tr');
+        const t1_d = DATA.m2['1'][idx] ? DATA.m2['1'][idx].date : '-';
+        const t2_d = idx < 7 ? '<span style="color:#059669;font-weight:600">MD119已完成</span>' : (DATA.m2['2'][idx] ? DATA.m2['2'][idx].date : '-');
+        const t3_d = DATA.m2['3'][idx] ? DATA.m2['3'][idx].date : '-';
+        const t4_d = DATA.m2['4'][idx] ? DATA.m2['4'][idx].date : '-';
+
+        tr.innerHTML = `
+            <td>${m}</td>
+            <td style="color:var(--t1)">${t1_d}</td>
+            <td style="color:var(--t2)">${t2_d}</td>
+            <td style="color:var(--t3)">${t3_d}</td>
+            <td style="color:var(--t4)">${t4_d}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Copy Share Text
+function copyShareText() {
+    const month = document.getElementById('lodged-select').selectedOptions[0].text;
+    const tier = document.getElementById('tier-name').textContent;
+    const date = document.getElementById('grant-date-display').textContent;
+    const days = document.getElementById('days-remaining').textContent;
+
+    const text = `【澳洲190 MD122批签预测】\n` +
+        `递交月份：${month}\n` +
+        `所属赛道：${tier}\n` +
+        `预计获批：${date} (距今约${days})\n` +
+        `测算基准：FOI官方24,196人底盘与MD122四Tier模型\n` +
+        `仅供参考，祝早日下签！`;
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('预测结论已成功复制到剪贴板！');
+        });
+    } else {
+        alert(text);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    initSelect();
+    calculateForecast();
+});
+</script>
+
+</body>
+</html>
