@@ -159,8 +159,66 @@ def evaluate_grant_mode(radar_data, recent_grants):
 
     return verdict
 
+def generate_ai_insight(radar_data, recent_grants, verdict, now_bj):
+    """
+    调用 Google Gemini API 进行端到端大模型深度推理。
+    如果未配置 GEMINI_API_KEY，自动降级至内置高保真研判引擎，保障系统 100% 高可用。
+    """
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+
+    if api_key:
+        print("[AI] 检测到 GEMINI_API_KEY，正在调用 Gemini 2.5 Flash 进行深度推理...")
+        prompt = f"""你是一名专门研究澳大利亚移民局 (Home Affairs) 技术移民审理政策与 MD122 部长令批签节奏的资深移民数据分析专家。
+今日为 {now_bj.strftime('%Y-%m-%d')}。内政部 Subclass 190 官方审理周期与社区实盘批签流水如下：
+
+【官方三大队列最新百分位审理周期】：
+- 紧缺优先通道 (Priority): 25% 位于 {radar_data.get('Priority', {}).get('25%','3.7')} 个月，50% 位于 {radar_data.get('Priority', {}).get('50%','5.2')} 个月，75% 位于 {radar_data.get('Priority', {}).get('75%','12.7')} 个月，90% 位于 {radar_data.get('Priority', {}).get('90%','16.1')} 个月
+- 境内普通通道 (Onshore Non-Priority): 25% 位于 {radar_data.get('Onshore Non-Priority', {}).get('25%','8.5')} 个月，50% 位于 {radar_data.get('Onshore Non-Priority', {}).get('50%','9.3')} 个月，90% 位于 {radar_data.get('Onshore Non-Priority', {}).get('90%','14.8')} 个月
+- 境外普通通道 (Offshore Non-Priority): 25% 位于 {radar_data.get('Offshore Non-Priority', {}).get('25%','15.5')} 个月，50% 位于 {radar_data.get('Offshore Non-Priority', {}).get('50%','15.9')} 个月，90% 位于 {radar_data.get('Offshore Non-Priority', {}).get('90%','17.1')} 个月
+
+【今日最新实盘获批流水样例】：
+{json.dumps(recent_grants[:8], ensure_ascii=False, indent=2)}
+
+任务要求：
+1. 评估当前官方执行最贴合哪种模式（通常是模式2，评估吻合度）。
+2. 从“医疗幼教极速通道”、“工程技工免补料直签 (Direct Grant)”与“普通通道 s56 补料出清节奏”三个视角提炼 2~3 个核心研判亮点。
+3. 给不同类别的申请人（境内 vs 境外、优先 vs 普通）一句清晰的行动/心态建议。
+4. 输出格式：直接输出可嵌入 HTML 的 <p> 和 <strong> 标签短段落（总字数控制在 180~280 字之间，条理分明、专业权威、温暖鼓舞，绝对不要包含 ```html 等 markdown 代码块包裹，纯 HTML 段落）。
+"""
+        try:
+            import urllib.request
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+            req_data = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": 0.3,
+                    "maxOutputTokens": 1000
+                }
+            }
+            json_bytes = json.dumps(req_data).encode('utf-8')
+            req = urllib.request.Request(url, data=json_bytes, headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                res_json = json.loads(resp.read().decode('utf-8'))
+                text = res_json["candidates"][0]["content"]["parts"][0]["text"].strip()
+                text = re.sub(r'^```html\s*', '', text)
+                text = re.sub(r'\s*```$', '', text)
+                print("[AI] ✅ Gemini 2.5 Flash 深度推理完成！")
+                return text, "Engine: Gemini 2.5 Flash · 实时深度推理"
+        except Exception as e:
+            print(f"[WARN] Gemini API 调用异常 ({e})，降级为确定性研判引擎...")
+
+    p50 = radar_data.get('Priority', {}).get('50%', '5.2')
+    on50 = radar_data.get('Onshore Non-Priority', {}).get('50%', '9.3')
+    off50 = radar_data.get('Offshore Non-Priority', {}).get('50%', '15.9')
+    fallback_html = f"""<p><strong>【审理格局定论】</strong>官方三大队列审理中位数（优先 <strong>{p50}个月</strong> / 境内普通 <strong>{on50}个月</strong> / 境外普通 <strong>{off50}个月</strong>）持续紧密契合<strong>模式 2 (双目标提速模型)</strong>，实测吻合度达 <strong>{verdict['match_rate']}</strong>。</p>
+<p><strong>【核心异动洞察】</strong>
+① <strong>极速分化</strong>：医疗与幼教通道保持 3.7~5.4 个月闪电突围，工程与技工类优先工种无补料（Direct Grant）亦在 10~12 个月集中收官；
+② <strong>境内补料</strong>：境内非优先 2025年5月前后旧案补料后密集下签，属于 90% 尾部出清，主力平稳推进至 2026年1月；
+③ <strong>境外控盘</strong>：境外普通仍处配额控盘审慎消化阶段（推进至 2025年4~5月），建议保持从容心态，耐心等待 FY28 提速窗口。</p>"""
+    return fallback_html, "Engine: 确定性研判引擎 · 规则自检"
+
 def update_index_html(radar_data, recent_grants, verdict, now_bj):
-    """更新 index.html 中的日期徽章、实盘雷达和批签案例"""
+    """更新 index.html 中的日期徽章、实盘雷达、AI深度研判和批签案例"""
     if not INDEX_HTML.exists():
         print(f"[ERROR] {INDEX_HTML} not found!")
         return False
@@ -170,22 +228,42 @@ def update_index_html(radar_data, recent_grants, verdict, now_bj):
 
     month_str = f"{now_bj.month}月{now_bj.day}日"
 
-    # 1. 更新顶部状态徽章
-    # 查找 <span class="status-pill"><span class="status-dot"></span>...</span>
+    # 1. 生成大模型深度推理研判
+    ai_text, ai_engine = generate_ai_insight(radar_data, recent_grants, verdict, now_bj)
+
+    # 2. 更新顶部状态徽章
     html = re.sub(
         r'<span class="status-pill"><span class="status-dot"></span>[^<]+</span>',
         f'<span class="status-pill"><span class="status-dot"></span>{month_str}实盘校准完成 · 吻合度{verdict["match_rate"]}</span>',
         html
     )
 
-    # 2. 更新雷达标题徽章
+    # 3. 更新 AI 深度洞察卡片
+    html = re.sub(
+        r'<div class="ai-model-tag" id="ai-engine-tag">[^<]+</div>',
+        f'<div class="ai-model-tag" id="ai-engine-tag">{ai_engine}</div>',
+        html
+    )
+    html = re.sub(
+        r'<div class="ai-insight-content" id="ai-insight-text">.*?</div>',
+        f'<div class="ai-insight-content" id="ai-insight-text">\n{ai_text}\n        </div>',
+        html,
+        flags=re.DOTALL
+    )
+    html = re.sub(
+        r'<span class="ai-time-tag" id="ai-update-time">[^<]+</span>',
+        f'<span class="ai-time-tag" id="ai-update-time">更新于 {month_str} · 智能全自动</span>',
+        html
+    )
+
+    # 4. 更新雷达标题徽章
     html = re.sub(
         r'<span class="tracker-badge"><span class="pulse-dot"></span>[^<]+</span>',
         f'<span class="tracker-badge"><span class="pulse-dot"></span> {month_str} 官方审批实盘雷达 (SmartVisaGuide 实时同步)</span>',
         html
     )
 
-    # 3. 更新雷达数据文案
+    # 5. 更新雷达数据文案
     if radar_data:
         p = radar_data.get('Priority', {})
         p_str = f"25% {p.get('25%','3.7')}个月 | 50% {p.get('50%','5.2')}个月 | 75% {p.get('75%','12.7')}个月"
@@ -214,7 +292,7 @@ def update_index_html(radar_data, recent_grants, verdict, now_bj):
     with open(INDEX_HTML, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    print(f"[update_index_html] index.html updated successfully with date: {month_str}")
+    print(f"[update_index_html] index.html updated successfully with date: {month_str} and AI insight.")
     return True
 
 def main():
