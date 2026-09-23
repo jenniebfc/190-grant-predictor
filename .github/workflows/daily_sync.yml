@@ -1,0 +1,66 @@
+name: Daily Visa Grant Data & MiniTool Sync
+
+on:
+  schedule:
+    # 每天早晨 10:00 CST (02:00 UTC)
+    - cron: '0 2 * * *'
+    # 每天傍晚 16:00 CST (08:00 UTC)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # 支持在 GitHub 页面手动一键触发
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出仓库代码 (Checkout Repo)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Python 环境 (Setup Python 3.10)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 运行全自动每日流水线 (Run Daily Auto Pipeline)
+        run: |
+          python scripts/auto_daily_pipeline.py
+
+      - name: 提交并推送到 GitHub (Commit and Push Changes)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html minitool_build/ 190-grant-predictor-minitool.zip scripts/
+          if git diff --staged --quiet; then
+            echo "✅ 没有检测到新变更，模型与雷达处于最新状态。"
+          else
+            git commit -m "chore(auto): sync smartvisaguide radar & update minitool package [skip ci]"
+            git push origin main
+            echo "🚀 已成功推送最新数据至 main 分支，GitHub Pages 即刻自动重新部署！"
+          fi
+
+      - name: 上传小红书微应用 Zip 产物 (Upload MiniTool Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: 190-grant-predictor-minitool
+          path: 190-grant-predictor-minitool.zip
+          retention-days: 14
+
+      - name: 发布最新 MiniTool Release (Create/Update GitHub Release)
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: latest
+          name: "Latest 190 Grant Predictor MiniTool Package"
+          body: |
+            自动生成的最新符合小红书微应用容器规范的离线 zip 包。
+            - 包含完整的 190 智能批签预测离线 H5 页面。
+            - 通过 audit_artifact.py 零警告校验通过。
+            - 下载后可直接在小红书创作者平台上传更新。
+          files: 190-grant-predictor-minitool.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

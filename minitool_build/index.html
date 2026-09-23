@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>澳洲 190 · MD122 智能批签预测</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="meta-tags">
+            <span class="status-pill"><span class="status-dot"></span>9月23日实盘校准完成 · 吻合度&gt;96%</span>
+            <span class="info-pill">FOI 24,196人唯一人头底盘</span>
+            <span class="info-pill">MD122 官方四Tier体系</span>
+            <span class="info-pill" style="color:var(--accent);border-color:var(--accent-border);background:var(--accent-light);">实测确证：境内外双轨并行</span>
+        </div>
+        <h1 class="app-title">澳洲 190 · MD122 智能批签预测</h1>
+        <p class="app-desc">
+            基于内政部官方底盘数据与最新部长令执行节奏，输入递交月份与申请人属性，即刻测算批签窗口与多模式推演。
+        </p>
+    </header>
+
+    <!-- Input Form Panel -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">申请人画像与参数配置</h2>
+        </div>
+        <div class="control-grid">
+
+            <!-- Lodged Month -->
+            <div class="field">
+                <label class="field-label" for="lodged-select">递交月份 (Date of Lodged)</label>
+                <div class="select-shell">
+                    <select id="lodged-select" class="custom-select">
+                        <!-- Filled by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="field">
+                <label class="field-label">当前所在地</label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="loc-onshore" name="location" value="onshore" checked />
+                        <label class="segment-label" for="loc-onshore">境内 (Onshore)</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="loc-offshore" name="location" value="offshore" />
+                        <label class="segment-label" for="loc-offshore">境外 (Offshore)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occupation Type -->
+            <div class="field">
+                <label class="field-label">职业属性</label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="occ-priority" name="occupation" value="priority" />
+                        <label class="segment-label" for="occ-priority">优先职业 (Priority)</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="occ-non-priority" name="occupation" value="non-priority" checked />
+                        <label class="segment-label" for="occ-non-priority">非优先职业 (General)</label>
+                    </div>
+                </div>
+                <div class="field-desc">优先职业含：医疗护理、教师、建筑建造、农业、国防等关键领域</div>
+            </div>
+
+            <!-- Family Composition -->
+            <div class="field">
+                <label class="field-label">申请人结构</label>
+                <div class="segment-group">
+                    <div class="segment-item">
+                        <input type="radio" id="fam-single" name="family" value="single" checked />
+                        <label class="segment-label" for="fam-single">单人申请</label>
+                    </div>
+                    <div class="segment-item">
+                        <input type="radio" id="fam-family" name="family" value="family" />
+                        <label class="segment-label" for="fam-family">携副申请人</label>
+                    </div>
+                </div>
+                <div class="field-desc">境外非优先将依此细分为单人赛道 (Tier 3) 与家庭赛道 (Tier 4)</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tier Strip -->
+    <div id="tier-strip" class="tier-strip t2">
+        <div class="tier-left">
+            <span id="tier-tag" class="tier-tag t2">Tier 2</span>
+            <div>
+                <div id="tier-name" class="tier-name">境内非优先职业赛道</div>
+                <div id="tier-caption" class="tier-caption">澳洲境内非优先通道，占用境内独立流水线（~94人/日），配额充足稳健。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Result Card -->
+    <section class="hero-panel">
+        <div class="hero-top-row">
+            <span class="hero-label">预计批签下签时间</span>
+            <span class="mode-chip">推荐模式 2 · 官方双目标兑现</span>
+        </div>
+        <div id="grant-date-display" class="hero-date">2026-10-09</div>
+
+        <!-- Direct Grant Fast-track Window -->
+        <div class="direct-grant-card" id="direct-grant-card">
+            <span class="dg-badge">⚡ 免补料直签先锋窗口</span>
+            <span class="dg-text" id="dg-text">若材料齐全无 s56 补料，预计可提前 3~7 个工作日率先突围下签！</span>
+        </div>
+
+        <!-- Metrics row -->
+        <div class="metric-cards">
+            <div class="metric-cell">
+                <div class="metric-cell-label">距离今日约</div>
+                <div class="metric-cell-val" id="days-remaining">17 天</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-cell-label">移民局净工作日</div>
+                <div class="metric-cell-val" id="workdays-remaining">13 天</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-cell-label">配额财年归属</div>
+                <div class="metric-cell-val" id="fy-label">FY27 境内</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar with Percentage -->
+        <div class="progress-block">
+            <div class="progress-header">
+                <span class="progress-title">全程排期等待进度</span>
+                <span class="progress-badge" id="progress-badge">
+                    <span id="progress-pct-text">已完成 75%</span>
+                </span>
+            </div>
+            <div class="progress-line">
+                <div class="progress-bar" id="progress-bar" style="width: 75%;"></div>
+            </div>
+            <div class="progress-labels">
+                <span id="label-start">递交申请</span>
+                <span style="color:var(--text-secondary);font-weight:600;">2026-09-19 切入MD122</span>
+                <span id="label-end">预计获批</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seamless Mental Massage & Koi Blessing Card -->
+    <div class="blessing-card" id="blessing-card">
+        <div class="blessing-avatar">🐟✨</div>
+        <div class="blessing-main">
+            <div class="blessing-msg" id="blessing-msg">
+                <!-- Dynamically filled by JS -->
+            </div>
+            <div class="blessing-footer">
+                <button class="koi-btn" id="btn-koi">
+                    <span>点亮今日下签锦鲤</span>
+                </button>
+                <span class="koi-feedback" id="koi-feedback"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Four Modes Comparison -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">四套情景模式推演对照</h2>
+        </div>
+        <div class="modes-container">
+
+            <!-- Mode 2 (Active / Rec) -->
+            <div class="mode-card active">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 2</span>
+                        <span class="rec-tag verified">实测吻合 96% · 官方运行模式</span>
+                    </div>
+                    <div class="mode-title-text">双目标兑现 · 提速</div>
+                </div>
+                <div class="mode-date-val" id="m2-date">-</div>
+                <div class="mode-desc-text">境内94+境外40人/日。实测印证：双轨独立全速推进，打满全财年35,500总配额。</div>
+            </div>
+
+            <!-- Mode 1 -->
+            <div class="mode-card">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 1</span>
+                        <span class="rec-tag neutral">基准参考</span>
+                    </div>
+                    <div class="mode-title-text">128人/日 · 固定基准</div>
+                </div>
+                <div class="mode-date-val" id="m1-date">-</div>
+                <div class="mode-desc-text">固定产能不借调，节奏较保守，全财年略有1,198人未消化。</div>
+            </div>
+
+            <!-- Mode 3 -->
+            <div class="mode-card">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 3</span>
+                        <span class="rec-tag neutral">观察参考</span>
+                    </div>
+                    <div class="mode-title-text">T3单人优先并行</div>
+                </div>
+                <div class="mode-date-val" id="m3-date">-</div>
+                <div class="mode-desc-text">境外单人分得64%产能。当前实盘以T1冲刺为主，此模式作中远期参考。</div>
+            </div>
+
+            <!-- Mode 4 -->
+            <div class="mode-card obsolete">
+                <div>
+                    <div class="mode-badge-top">
+                        <span class="mode-id">模式 4</span>
+                        <span class="rec-tag obsolete">已落空 · 实测证伪</span>
+                    </div>
+                    <div class="mode-title-text" style="color:var(--text-muted);text-decoration:line-through;">单通道顺序 (已失效)</div>
+                </div>
+                <div class="mode-date-val" id="m4-date" style="text-decoration:line-through;color:var(--text-muted);">-</div>
+                <div class="mode-desc-text" style="color:var(--text-muted);">假定境内全清才轮到境外。实盘显示境外已大面积下签，此倒退模式彻底失效。</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Live Daily Activity Tracker (SmartVisaGuide #17784) -->
+    <div class="live-tracker-banner">
+        <div class="tracker-header">
+            <span class="tracker-badge"><span class="pulse-dot"></span> 9月23日 官方审批实盘雷达 (MD122 运行第 5 日)</span>
+            <span class="tracker-time">数据源：SmartVisaGuide Post #17784 &amp; 官方 Subclass 190 宏观数据</span>
+        </div>
+        <div class="tracker-grid">
+            <div class="tracker-col">
+                <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
+                <div class="tracker-val">推进至 <strong>2026-04-13</strong> (医疗极速) / <strong>2025-11-04</strong> (工程直签)</div>
+                <div class="tracker-hint">
+                    官方周期：<strong>25% 3.7个月 | 50% 5.2个月 | 75% 12.7个月</strong>。<br>
+                    实盘：9.23 塔州急诊护士仅 <strong>5.4个月(163天)</strong> 秒批！NSW境外电工与土木10~12个月免补料直签。
+                </div>
+            </div>
+            <div class="tracker-col">
+                <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2/3)</div>
+                <div class="tracker-val">前沿推进至 <strong>2026-01-28</strong> · 旧案集中出清至 <strong>2025-05</strong></div>
+                <div class="tracker-hint">
+                    官方周期：<strong>25% 8.5个月 | 50% 9.3个月 | 90% 14.8个月</strong>。<br>
+                    实盘：9.23 SA机械工程师与NSW汽车技师在完成s56补料后集中获批（16.5个月）；1月新递交案稳定消化。
+                </div>
+            </div>
+            <div class="tracker-col">
+                <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 4)</div>
+                <div class="tracker-val">稳步消化至 <strong>2025-04 ~ 2025-05</strong></div>
+                <div class="tracker-hint">
+                    官方周期：<strong>25% 15.5个月 | 50% 15.9个月 | 90% 17.1个月</strong>。<br>
+                    实盘：9.21 计算机网络工程师历时 17.4 个月获批。配额仍处于审慎控盘阶段，建议维持稳健排期预期。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-world Activity Feed -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">9月21日 ~ 9月23日 实盘批签追踪实录 (SmartVisaGuide)</h2>
+        </div>
+        <div class="feed-rows">
+            <!-- 9/23 Grants -->
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">重症与急诊注册护士 (Critical Care RN)</span>
+                    <span class="feed-sub">TAS 境内 190 · 2026-04-13 递交 (85分)</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span class="feed-tag-dg" style="margin-right:8px;">⚡ 5.4个月极速下签</span>
+                    <span class="feed-status">9/23 下签 · Tier 1 医疗先锋</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">机械工程师 (Mechanical Engineer)</span>
+                    <span class="feed-sub">SA 境内 190 · 2025-05-06 递交 (75分)</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span style="font-size:12px;color:var(--text-muted);margin-right:8px;">8/21 s56工作证明</span>
+                    <span class="feed-status">9/23 下签 · 历时16.6个月(旧案清盘)</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">汽车技术工种 (Automotive)</span>
+                    <span class="feed-sub">NSW 境内 190 · 2025-05-07 递交</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span style="font-size:12px;color:var(--text-muted);margin-right:8px;">8/24 s56补料</span>
+                    <span class="feed-status">9/23 下签 · 历时16.5个月</span>
+                </div>
+            </div>
+            <!-- 9/22 Direct Grant & Priority -->
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">通用电工 (Electrician General)</span>
+                    <span class="feed-sub">NSW 境外 190 · 2025-09-22 递交 (70分)</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span class="feed-tag-dg" style="margin-right:8px;">⚡ 免补料直签 (Direct Grant)</span>
+                    <span class="feed-status">9/22 下签 · 整整12.0个月秒批</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">土木工程师 (Civil Engineer)</span>
+                    <span class="feed-sub">NSW 境外 190 · 2025-11-04 递交 (85分)</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span class="feed-tag-dg" style="margin-right:8px;">⚡ 免补料直签 (Direct Grant)</span>
+                    <span class="feed-status">9/22 下签 · 历时10.6个月(破纪录)</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">建筑项目经理 (Construction PM)</span>
+                    <span class="feed-sub">WA 境外 190 · 2025-06-29 递交</span>
+                </div>
+                <div style="display:flex;align-items:center;">
+                    <span style="font-size:12px;color:var(--text-muted);margin-right:8px;">无s56补料</span>
+                    <span class="feed-status">9/22 下签 · Tier 1 兑现</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">厨师 (Chef - TSE快速通道)</span>
+                    <span class="feed-sub">TAS 境内 190 · 2026-01-28 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/21 下签 · 历时7.8个月(吻合25%前沿)</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">计算机网络系统工程师 (Network Engineer)</span>
+                    <span class="feed-sub">NSW 境外 190 · 2025-04-10 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/21 下签 · 历时17.4个月(境外非优先)</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">中学教师 (Secondary Teacher)</span>
+                    <span class="feed-sub">SA 境外 190 · 2025-11-23 递交</span>
+                </div>
+                <div>
+                    <span class="feed-status">9/21 下签 · Tier 1 教师批次</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Accordion -->
+    <section class="panel">
+        <div class="panel-header">
+            <h2 class="panel-title">审理前置准备与注意事项</h2>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" data-acc="1">
+                <span>1. 体检 (Medicals) 即将满 1 年是否需要主动重做？</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                不建议提前盲目重做。体检有效期为12个月。如果审到你的案子时体检过期，签证官会下发 s56 补料通知并给予 28 天窗口。收到正式通知后再预约体检，可避免白白产生二次费用。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" data-acc="2">
+                <span>2. 澳洲 AFP 与国内无犯罪证明的有效期准备</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                澳洲联邦警局无犯罪证明 (AFP) 办理周期通常为 1-3 个工作日；国内公证大约需 1-2 周。建议在预估批签节点前 1-2 个月检查有效期即可。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" data-acc="3">
+                <span>3. 搬家、换护照或变更邮箱的申报流程</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                请在 ImmiAccount 个人后台直接提交 Form 929（Update details），确保签证官发出的 s56 补料通知或获批准迁信能及时送达。
+            </div>
+        </div>
+        <div class="acc-item">
+            <div class="acc-trigger" data-acc="4">
+                <span>4. 移民局批签发信时间习惯与查询频率</span>
+                <span class="acc-arrow">＋</span>
+            </div>
+            <div class="acc-body">
+                移民局通常在澳洲东部时间工作日上午9点至下午4点之间集中派发批签信。在无补料要求或个人信息变更的情况下，无需频繁刷新 ImmiAccount，避免触发系统安全验证锁定。
+            </div>
+        </div>
+    </section>
+
+    <!-- Global 25-Month Table Accordion -->
+    <section class="panel">
+        <div class="acc-trigger" id="full-table-trigger" style="font-size:15px;">
+            <span>📊 展开 25个月 × 4模式 全局预测对照总表</span>
+            <span id="table-arrow">＋</span>
+        </div>
+        <div class="acc-body" id="full-table-content" style="display:none;margin-top:14px;">
+            <div class="table-toolbar">
+                <span style="font-size:12px;font-weight:600;color:var(--text);">切换推演模式：</span>
+                <div class="table-mode-tabs">
+                    <button class="table-tab-btn active" data-mode="m2">模式 2 · 双目标提速 (实测推荐)</button>
+                    <button class="table-tab-btn" data-mode="m1">模式 1 · 128人基准</button>
+                    <button class="table-tab-btn" data-mode="m3">模式 3 · T3单人优先</button>
+                    <button class="table-tab-btn" data-mode="m4">模式 4 · 单通道 (已失效)</button>
+                </div>
+            </div>
+            <div class="table-mode-hint" id="table-mode-hint">
+                当前展示：<strong>【模式 2 · 双目标提速】</strong> 境内94+境外40人/日，双轨独立全速推进（与9.21~9.22官方审批实测吻合度最高）。
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lodged 月份</th>
+                            <th>Tier 1 优先</th>
+                            <th>Tier 2 境内</th>
+                            <th>Tier 3 境外单人</th>
+                            <th>Tier 4 境外带副申</th>
+                        </tr>
+                    </thead>
+                    <tbody id="full-table-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="action-row">
+        <button class="btn-primary" id="btn-share">查看 / 复制我的批签预测结论</button>
+        <button class="btn-outline" id="btn-reset">重置为默认条件</button>
+    </div>
+
+    <!-- In-page Share Modal (No forbidden clipboard API) -->
+    <div class="modal-overlay" id="share-modal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">我的批签预测结论</h3>
+                <button class="modal-close" id="modal-close-btn">✕</button>
+            </div>
+            <p class="modal-hint">长按文本框即可全选复制，分享到小红书或微信群：</p>
+            <textarea class="modal-textarea" id="share-text-area" readonly></textarea>
+            <div class="modal-actions">
+                <button class="btn-primary" id="modal-ok-btn">我知道了</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>数据基准：澳洲内政部 FOI 官方底盘数据 (P+S 24,196人) ｜ 实施政策：MD122 Ministerial Direction</p>
+        <p>所有预测均基于历史消耗均速与配额数学模型情景测算，仅供移民规划与排期进度参考，不构成官方审批时限承诺。</p>
+    </footer>
+
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
