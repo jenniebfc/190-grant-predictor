@@ -233,8 +233,8 @@ def update_index_html(radar_data, recent_grants, verdict, now_bj):
 
     # 2. 更新顶部状态徽章
     html = re.sub(
-        r'<span class="status-pill"><span class="status-dot"></span>[^<]+</span>',
-        f'<span class="status-pill"><span class="status-dot"></span>{month_str}实盘校准完成 · 吻合度{verdict["match_rate"]}</span>',
+        r'<span class="status-pill"[^>]*><span class="status-dot"></span>[^<]+</span>',
+        f'<span class="status-pill" id="meta-calibration"><span class="status-dot"></span>{month_str}实盘校准完成 · 吻合度{verdict["match_rate"]}</span>',
         html
     )
 
