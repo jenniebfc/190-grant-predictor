@@ -1091,26 +1091,30 @@
             display: flex;
             justify-content: center;
             margin-bottom: 22px;
+            width: 100%;
         }
 
         .subclass-switcher {
-            display: inline-flex;
+            display: flex;
             background: #E2E8F0;
             padding: 4px;
             border-radius: 12px;
-            gap: 6px;
+            gap: 4px;
             box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
             width: 100%;
             max-width: 520px;
+            box-sizing: border-box;
+            user-select: none;
         }
 
         .subclass-tab {
-            flex: 1;
+            flex: 1 1 0;
+            min-width: 0; /* CRITICAL: Prevents flex child from overflowing parent */
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 10px 16px;
+            padding: 10px 14px;
             border: none;
             border-radius: 9px;
             background: transparent;
@@ -1120,10 +1124,16 @@
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
         }
 
         .subclass-tab:hover {
             color: var(--text);
+        }
+
+        .subclass-tab:active {
+            transform: scale(0.98);
         }
 
         .subclass-tab.active {
@@ -1132,7 +1142,31 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
         }
 
+        .subclass-tab .tab-title {
+            display: inline-flex;
+            align-items: center;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .subclass-tab .tab-code {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .subclass-tab .tab-desc-mobile {
+            display: none;
+        }
+
+        .subclass-tab .badge-mobile {
+            display: none;
+        }
+
         .subclass-tab .tab-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 11px;
@@ -1140,6 +1174,7 @@
             background: var(--surface-muted);
             color: var(--text-muted);
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .subclass-tab.active#tab-190 .tab-badge {
@@ -1150,6 +1185,89 @@
         .subclass-tab.active#tab-491 .tab-badge {
             background: #D97706; /* Amber for regional 491 */
             color: #FFFFFF;
+        }
+
+        /* Mobile H5 Specific Ergonomics (< 640px) */
+        @media (max-width: 640px) {
+            .app-layout {
+                padding: 16px 12px 60px;
+            }
+
+            .subclass-nav-wrapper {
+                margin-bottom: 16px;
+                padding: 0 2px;
+            }
+
+            .subclass-switcher {
+                max-width: 100%;
+                padding: 3px;
+                gap: 3px;
+                border-radius: 10px;
+            }
+
+            .subclass-tab {
+                padding: 9px 4px;
+                font-size: 13px;
+                gap: 5px;
+                border-radius: 8px;
+                min-height: 40px; /* Touch target */
+            }
+
+            .subclass-tab .tab-prefix {
+                display: none; /* Hide 'Subclass ' on mobile */
+            }
+
+            .subclass-tab .tab-desc-desktop {
+                display: none; /* Hide long text ' 州担保技术移民' on mobile */
+            }
+
+            .subclass-tab .tab-desc-mobile {
+                display: inline; /* Show compact ' 州担保' on mobile */
+                font-size: 13px;
+            }
+
+            .subclass-tab .badge-desktop {
+                display: none; /* Hide '永居 PR' on mobile */
+            }
+
+            .subclass-tab .badge-mobile {
+                display: inline; /* Show 'PR' on mobile */
+            }
+
+            .subclass-tab .tab-badge {
+                font-size: 10px;
+                padding: 1px 5px;
+                border-radius: 4px;
+            }
+
+            /* Feed rows responsive stacking */
+            .feed-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            /* Hero date font size responsive */
+            .hero-date {
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .subclass-tab {
+                font-size: 12px;
+                gap: 3px;
+                padding: 8px 2px;
+            }
+
+            .subclass-tab .tab-desc-mobile {
+                font-size: 12px;
+            }
+
+            .subclass-tab .tab-badge {
+                font-size: 9px;
+                padding: 1px 4px;
+            }
         }
 
         /* Quota Exhaustion Warning Card on Hero */
@@ -1188,14 +1306,24 @@
     <header class="app-header">
         <!-- Subclass Switcher Tabs -->
         <div class="subclass-nav-wrapper">
-            <div class="subclass-switcher" role="tablist" aria-label="签证类别切换">
+            <div class="subclass-switcher" role="tablist" aria-label="选择澳洲移民签证类别">
                 <button type="button" class="subclass-tab active" id="tab-190" role="tab" aria-selected="true" onclick="switchSubclass('190')">
-                    <span>Subclass 190 州担保技术移民</span>
-                    <span class="tab-badge">永居 PR</span>
+                    <span class="tab-title">
+                        <span class="tab-prefix">Subclass </span><span class="tab-code">190</span><span class="tab-desc-desktop"> 州担保技术移民</span><span class="tab-desc-mobile"> 州担保</span>
+                    </span>
+                    <span class="tab-badge">
+                        <span class="badge-desktop">永居 PR</span>
+                        <span class="badge-mobile">PR</span>
+                    </span>
                 </button>
                 <button type="button" class="subclass-tab" id="tab-491" role="tab" aria-selected="false" onclick="switchSubclass('491')">
-                    <span>Subclass 491 偏远地区州担/亲属</span>
-                    <span class="tab-badge">准永居 TR</span>
+                    <span class="tab-title">
+                        <span class="tab-prefix">Subclass </span><span class="tab-code">491</span><span class="tab-desc-desktop"> 偏远地区州担/亲属</span><span class="tab-desc-mobile"> 偏远地区</span>
+                    </span>
+                    <span class="tab-badge">
+                        <span class="badge-desktop">准永居 TR</span>
+                        <span class="badge-mobile">TR</span>
+                    </span>
                 </button>
             </div>
         </div>
