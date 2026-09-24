@@ -1190,12 +1190,16 @@
         /* Mobile H5 Specific Ergonomics (< 640px) */
         @media (max-width: 640px) {
             .app-layout {
-                padding: 16px 12px 60px;
+                padding: 12px 10px 50px;
+            }
+
+            .app-header {
+                margin-bottom: 10px;
             }
 
             .subclass-nav-wrapper {
-                margin-bottom: 16px;
-                padding: 0 2px;
+                margin-bottom: 8px;
+                padding: 0;
             }
 
             .subclass-switcher {
@@ -1206,11 +1210,11 @@
             }
 
             .subclass-tab {
-                padding: 9px 4px;
+                padding: 8px 4px;
                 font-size: 13px;
                 gap: 5px;
                 border-radius: 8px;
-                min-height: 40px; /* Touch target */
+                min-height: 38px; /* Touch target */
             }
 
             .subclass-tab .tab-prefix {
@@ -1240,16 +1244,156 @@
                 border-radius: 4px;
             }
 
+            /* Meta Tags: Convert multi-row wrap into a single-line horizontal ticker ribbon */
+            .meta-tags {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                margin-bottom: 8px;
+                padding: 1px 0;
+            }
+
+            .meta-tags::-webkit-scrollbar {
+                display: none;
+            }
+
+            .status-pill, .info-pill {
+                font-size: 11px;
+                padding: 3px 8px;
+                border-radius: 6px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                height: 22px;
+                line-height: 16px;
+            }
+
+            .app-title {
+                font-size: 18px;
+                margin-bottom: 4px;
+                font-weight: 700;
+            }
+
+            .app-desc {
+                display: none; /* Hide verbose generic paragraph on mobile to drastically boost first-screen efficiency */
+            }
+
+            /* Compact Form & Panel on Mobile */
+            .panel {
+                padding: 14px 12px;
+                margin-bottom: 10px;
+                border-radius: var(--radius-lg);
+            }
+
+            .panel-header {
+                margin-bottom: 8px;
+            }
+
+            .panel-title {
+                font-size: 13px;
+            }
+
+            .control-grid {
+                gap: 8px;
+            }
+
+            .field {
+                gap: 4px;
+            }
+
+            .field-label {
+                font-size: 12px;
+            }
+
+            .field-desc {
+                display: none; /* Hide secondary hint text on mobile */
+            }
+
+            .segment-label {
+                height: 32px;
+                font-size: 12px;
+                padding: 0 8px;
+            }
+
+            .custom-select {
+                height: 36px;
+                font-size: 13px;
+                padding: 0 10px;
+            }
+
+            /* Hero Card Compact Optimization */
+            .hero-panel {
+                padding: 16px 14px;
+                margin-bottom: 10px;
+                border-radius: var(--radius-lg);
+            }
+
+            .hero-top-row {
+                margin-bottom: 6px;
+            }
+
+            .hero-label {
+                font-size: 12px;
+            }
+
+            .mode-chip {
+                font-size: 11px;
+                padding: 2px 7px;
+            }
+
+            .hero-date {
+                font-size: 34px;
+                margin-bottom: 6px;
+            }
+
+            .direct-grant-card {
+                margin-top: 8px;
+                padding: 8px 10px;
+                font-size: 12px;
+                gap: 6px;
+            }
+
+            .dg-badge {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+
+            .quota-warning-banner {
+                margin-top: 8px;
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .metric-cards {
+                margin-top: 8px;
+                gap: 6px;
+            }
+
+            .metric-cell {
+                padding: 8px 10px;
+            }
+
+            .metric-cell-label {
+                font-size: 10px;
+            }
+
+            .metric-cell-val {
+                font-size: 14px;
+            }
+
+            .progress-block {
+                margin-top: 10px;
+            }
+
             /* Feed rows responsive stacking */
             .feed-row {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 6px;
-            }
-
-            /* Hero date font size responsive */
-            .hero-date {
-                font-size: 38px;
+                padding: 8px 10px;
             }
         }
 
@@ -1257,7 +1401,7 @@
             .subclass-tab {
                 font-size: 12px;
                 gap: 3px;
-                padding: 8px 2px;
+                padding: 7px 2px;
             }
 
             .subclass-tab .tab-desc-mobile {
@@ -1267,6 +1411,10 @@
             .subclass-tab .tab-badge {
                 font-size: 9px;
                 padding: 1px 4px;
+            }
+
+            .hero-date {
+                font-size: 30px;
             }
         }
 
