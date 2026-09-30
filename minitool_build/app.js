@@ -1917,7 +1917,7 @@ function switchSubclass(sc) {
             feedRows.innerHTML = `
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">工程经理 (Engineering Manager - 189境外优先)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">工程经理 (Engineering Manager - 189境外优先)</span>
                         <span class="feed-sub">境外 189 · 2026-06-14 递交 (90分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -1927,7 +1927,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">建筑项目经理 (Construction PM - 189境外优先)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">建筑项目经理 (Construction PM - 189境外优先)</span>
                         <span class="feed-sub">境外 189 · 2026-06-14 递交 (90分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -1937,7 +1937,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">水文地质学家 (Hydrogeologist - 189境外优先)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">水文地质学家 (Hydrogeologist - 189境外优先)</span>
                         <span class="feed-sub">境外 189 · 2026-06-15 递交 (85分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -1947,7 +1947,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">临床心理学家 (Clinical Psychologist - 189优先职业)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">临床心理学家 (Clinical Psychologist - 189优先职业)</span>
                         <span class="feed-sub">VIC 境外 189 · 2026-06-16 递交 (80分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -1957,7 +1957,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">软件工程师 (Software Engineer - 189境内非优先)</span>
+                        <span class="feed-tier-badge t2">T2</span><span class="feed-occ">软件工程师 (Software Engineer - 189境内非优先)</span>
                         <span class="feed-sub">NSW 境内 189 · 2026-06-12 递交 (95分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2009,7 +2009,7 @@ function switchSubclass(sc) {
                     </div>
                 </div>
                 <div class="tracker-col">
-                    <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2/3)</div>
+                    <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程) · 补料推进至 <strong>2026-01</strong></div>
                     <div class="tracker-hint">
                         官方周期：<strong>25% 5.1个月 | 50% 7.0个月 | 75% 15.5个月</strong>。<br>
@@ -2017,7 +2017,7 @@ function switchSubclass(sc) {
                     </div>
                 </div>
                 <div class="tracker-col">
-                    <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 4)</div>
+                    <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 3/4)</div>
                     <div class="tracker-val">稳步消化至 <strong>2025-05 ~ 2025-06</strong> (普通非优先)</div>
                     <div class="tracker-hint">
                         官方周期：<strong>25% 5.1个月 | 50% 7.0个月 | 75% 15.5个月</strong>。<br>
@@ -2032,7 +2032,7 @@ function switchSubclass(sc) {
             feedRows.innerHTML = `
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">农业工程师 (Agricultural Engineer - Priority)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">农业工程师 (Agricultural Engineer - Priority)</span>
                         <span class="feed-sub">QLD 境外 190 · 2026-03-05 递交 (90分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2042,7 +2042,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">计算机网络与系统工程师 (Computer Network Engineer)</span>
+                        <span class="feed-tier-badge t2">T2</span><span class="feed-occ">计算机网络与系统工程师 (Computer Network Engineer)</span>
                         <span class="feed-sub">VIC 境内 190 · 2026-04-23 递交 (100分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2052,7 +2052,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">施工项目经理 (Construction Project Manager - Priority)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">施工项目经理 (Construction Project Manager - Priority)</span>
                         <span class="feed-sub">NSW 境外 190 · 2026-02-15 递交 (95分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2062,7 +2062,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">注册护士 (Registered Nurse - Priority)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">注册护士 (Registered Nurse - Priority)</span>
                         <span class="feed-sub">VIC 境外 190 · 2026-05-10 递交 (85分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2072,7 +2072,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">机械工程师 (Mechanical Engineer - 非优先普工)</span>
+                        <span class="feed-tier-badge t2">T2</span><span class="feed-occ">机械工程师 (Mechanical Engineer - 非优先普工)</span>
                         <span class="feed-sub">SA 境内 190 · 2025-12-20 递交 (80分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2082,7 +2082,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">软件工程师 (Software Engineer - 非优先普工)</span>
+                        <span class="feed-tier-badge t2">T2</span><span class="feed-occ">软件工程师 (Software Engineer - 非优先普工)</span>
                         <span class="feed-sub">VIC 境内 190 · 2026-01-29 递交 (100分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2157,7 +2157,7 @@ function switchSubclass(sc) {
             feedRows.innerHTML = `
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">土木工程绘图员 (Civil Engineering Draftsperson)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">土木工程绘图员 (Civil Engineering Draftsperson)</span>
                         <span class="feed-sub">QLD 境内 491 · 2026-05-20 递交 (80分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2167,7 +2167,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">注册护士 (Registered Nurse - 偏远急需优先)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">注册护士 (Registered Nurse - 偏远急需优先)</span>
                         <span class="feed-sub">TAS 境内 491 · 2026-05-18 递交 (85分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2177,7 +2177,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">汽车修理工 (Motor Mechanic - 偏远境内普工)</span>
+                        <span class="feed-tier-badge t2">T2</span><span class="feed-occ">汽车修理工 (Motor Mechanic - 偏远境内普工)</span>
                         <span class="feed-sub">SA 境内 491 · 2025-11-15 递交 (75分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2187,7 +2187,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">幼儿教师 (Early Childhood Teacher - 偏远急需优先)</span>
+                        <span class="feed-tier-badge t1">T1</span><span class="feed-occ">幼儿教师 (Early Childhood Teacher - 偏远急需优先)</span>
                         <span class="feed-sub">SA 境外 491 · 2026-04-10 递交 (80分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2197,7 +2197,7 @@ function switchSubclass(sc) {
                 </div>
                 <div class="feed-row">
                     <div>
-                        <span class="feed-occ">机械工程师 (Mechanical Engineer - 境外家庭普通)</span>
+                        <span class="feed-tier-badge t4">T4</span><span class="feed-occ">机械工程师 (Mechanical Engineer - 境外家庭普通)</span>
                         <span class="feed-sub">NSW 境外 491 · 2025-07-15 递交 (85分·带配偶)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
