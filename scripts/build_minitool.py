@@ -273,7 +273,7 @@ function openShareModal() {
     var days = daysEl ? daysEl.textContent : '-';
     var sc = currentSubclass;
     var scName = sc === '189' ? '澳洲 189 独立技术移民' : (sc === '491' ? '澳洲 491 偏远地区签证' : '澳洲 190 州担保技术移民');
-    var baseline = sc === '189' ? 'FOI官方6,242人在池底盘与Ethan实盘测算标杆' : (sc === '491' ? 'FOI官方18,442人底盘与MD122四Tier模型' : 'FOI官方24,196人底盘与MD122四Tier模型');
+    var baseline = sc === '189' ? 'FOI官方6,242人在池底盘与Ethan实盘测算标杆' : (sc === '491' ? 'FOI官方18,364人底盘与MD122四Tier模型' : 'FOI官方24,196人底盘与MD122四Tier模型');
 
     var text = '【' + scName + ' 批签预测】\\n' +
         '递交月份：' + month + '\\n' +

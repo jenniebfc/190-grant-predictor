@@ -53,6 +53,10 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 32px 20px 80px;
+            padding-top: calc(env(safe-area-inset-top, 0px) + 32px);
+            padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+            padding-left: calc(env(safe-area-inset-left, 0px) + 20px);
+            padding-right: calc(env(safe-area-inset-right, 0px) + 20px);
         }
 
         /* Header */
@@ -1187,7 +1191,11 @@
         /* Mobile H5 Specific Ergonomics (< 640px) */
         @media (max-width: 640px) {
             .app-layout {
-                padding: 12px 10px 50px;
+                padding: 56px 10px 50px; /* Chrome 61 fallback: ~44px notch + 12px margin */
+                padding-top: max(calc(env(safe-area-inset-top, 0px) + 20px), 56px);
+                padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 50px);
+                padding-left: calc(env(safe-area-inset-left, 0px) + 10px);
+                padding-right: calc(env(safe-area-inset-right, 0px) + 10px);
             }
 
             .app-header {
@@ -1195,7 +1203,8 @@
             }
 
             .subclass-nav-wrapper {
-                margin-bottom: 8px;
+                margin-top: 6px;
+                margin-bottom: 12px;
                 padding: 0;
             }
 

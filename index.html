@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>澳洲190签证 · MD122智能批签预测工具</title>
     <meta name="description" content="基于澳洲内政部FOI官方24,196人真实底盘数据与MD122四Tier规则，精准测算各Lodged月份在四套情景模式下的批签时间窗口。">
     <style>
@@ -61,6 +61,10 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 32px 20px 80px;
+            padding-top: calc(env(safe-area-inset-top, 0px) + 32px);
+            padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+            padding-left: calc(env(safe-area-inset-left, 0px) + 20px);
+            padding-right: calc(env(safe-area-inset-right, 0px) + 20px);
         }
 
         /* Header */
@@ -1195,7 +1199,11 @@
         /* Mobile H5 Specific Ergonomics (< 640px) */
         @media (max-width: 640px) {
             .app-layout {
-                padding: 12px 10px 50px;
+                padding: 56px 10px 50px; /* Chrome 61 fallback: ~44px notch + 12px margin */
+                padding-top: max(calc(env(safe-area-inset-top, 0px) + 20px), 56px);
+                padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 50px);
+                padding-left: calc(env(safe-area-inset-left, 0px) + 10px);
+                padding-right: calc(env(safe-area-inset-right, 0px) + 10px);
             }
 
             .app-header {
@@ -1203,7 +1211,8 @@
             }
 
             .subclass-nav-wrapper {
-                margin-bottom: 8px;
+                margin-top: 6px;
+                margin-bottom: 12px;
                 padding: 0;
             }
 
@@ -1491,7 +1500,7 @@
         </div>
 
         <div class="meta-tags">
-            <span class="status-pill" id="meta-calibration"><span class="status-dot"></span>9月29日实盘校准完成 · 吻合度>96%</span>
+            <span class="status-pill" id="meta-calibration"><span class="status-dot"></span>9月30日实盘校准完成 · 吻合度>96%</span>
             <span class="info-pill" id="meta-backlog">FOI 24,196人唯一人头底盘</span>
             <span class="info-pill" id="meta-md">MD122 官方四Tier体系</span>
             <span class="info-pill" id="meta-speed" style="color:var(--accent);border-color:var(--accent-border);background:var(--accent-light);">实测确证：境内外双轨并行</span>
@@ -1734,47 +1743,47 @@
             <div class="ai-model-tag" id="ai-engine-tag">Engine: 确定性研判引擎 · 规则自检</div>
         </div>
         <div class="ai-insight-content" id="ai-insight-text">
-<p><strong>【审理格局定论】</strong>官方三大队列审理中位数（优先 <strong>7.3个月</strong> / 境内普通 <strong>9.0个月</strong> / 境外普通 <strong>15.8个月</strong>）持续紧密契合<strong>模式 2 (双目标提速模型)</strong>，实测吻合度达 <strong>>96%</strong>。</p>
-<p><strong>【核心异动洞察】</strong>
-① <strong>极速分化</strong>：医疗与幼教通道保持 3.7~5.4 个月闪电突围，工程与技工类优先工种无补料（Direct Grant）亦在 10~12 个月集中收官；
-② <strong>境内补料</strong>：境内非优先 2025年5月前后旧案补料后密集下签，属于 90% 尾部出清，主力平稳推进至 2026年1月；
-③ <strong>境外控盘</strong>：境外普通仍处配额控盘审慎消化阶段（推进至 2025年4~5月），建议保持从容心态，耐心等待 FY28 提速窗口。</p>
+<p><strong>【审理格局定论】</strong>官方三大队列审理中位数（优先 <strong>7.0个月</strong> / 境内普通 <strong>9.0个月</strong> / 境外普通 <strong>15.8个月</strong>）持续紧密契合<strong>模式 2 (双目标提速模型)</strong>，实测吻合度达 <strong>>96%</strong>。</p>
+<p><strong>【核心异动洞察 (9月30日)】</strong><br>
+① <strong>极速分化</strong>：医疗与幼教通道保持 3.5~5.1 个月闪电突围，工程与技工类优先工种无补料（Direct Grant）亦在 7~10 个月集中收官；<br>
+② <strong>境内提速</strong>：境内非优先推进至 2026年1月，维州境内网络工程师（5.2个月）免补料秒下，中位数收窄至 9.0 个月；<br>
+③ <strong>境外基建先锋</strong>：NSW 境外施工项目经理与 QLD 境外农业工程师 (6.9个月) 连环直签，验证双目标提速有效运转。</p>
         </div>
         <div class="ai-insight-footer">
             <span class="ai-confidence-pill">🎯 今日模型推演结论：<strong>模式 2 · 双目标提速 (实测吻合度 >96%)</strong></span>
-            <span class="ai-time-tag" id="ai-update-time">更新于 9月29日 · 智能全自动</span>
+            <span class="ai-time-tag" id="ai-update-time">更新于 9月30日 · 智能全自动</span>
         </div>
     </div>
 
     <!-- Live Daily Activity Tracker (SmartVisaGuide #17784) -->
     <div class="live-tracker-banner">
         <div class="tracker-header">
-            <span class="tracker-badge"><span class="pulse-dot"></span> 9月29日 官方审批实盘雷达 (SmartVisaGuide 实时同步)</span>
+            <span class="tracker-badge"><span class="pulse-dot"></span> 9月30日 官方审批实盘雷达 (SmartVisaGuide 实时同步)</span>
             <span class="tracker-time" id="tracker-datasource">数据源：SmartVisaGuide Database &amp; 官方 Subclass 190 宏观大盘</span>
         </div>
         <div class="tracker-grid" id="tracker-grid">
             <div class="tracker-col">
                 <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
-                <div class="tracker-val">推进至 <strong>2026-04-13</strong> (境内医疗) / <strong>2026-02-13</strong> (境外土木/护士)</div>
+                <div class="tracker-val">推进至 <strong>2026-05-02</strong> (境内医疗) / <strong>2026-05-10</strong> (境外优先)</div>
                 <div class="tracker-hint">
-                    官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                    实盘：9.24 维州境外土木(2026-02-13)与南澳境外护士仅 <strong>7.3个月</strong> 秒批！25%极速位进一步压缩至 3.5 个月。
+                    官方周期：<strong>25% 5.1个月 | 50% 7.0个月 | 75% 14.8个月</strong>。<br>
+                    实盘：9.30 维州境外优先(2026-05-10)仅 <strong>4.9个月</strong> 直签！25%极速位稳定在 3.5~5.1 个月。
                 </div>
             </div>
             <div class="tracker-col">
                 <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2/3)</div>
-                <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程师) · 补料推进至 <strong>2025-12</strong></div>
+                <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程) · 补料推进至 <strong>2026-01</strong></div>
                 <div class="tracker-hint">
-                    官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                    实盘：9.24 维州境内软件工程师(100分)仅 <strong>7.8个月</strong> 免补料直签！境内中位数提速收窄至 9.2 个月。
+                    官方周期：<strong>25% 8.2个月 | 50% 9.0个月 | 75% 15.2个月</strong>。<br>
+                    实盘：9.29 维州境内网络工程(100分)仅 <strong>5.2个月</strong> 免补料直签！境内中位数稳定在 9.0 个月。
                 </div>
             </div>
             <div class="tracker-col">
                 <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 4)</div>
-                <div class="tracker-val">稳步消化至 <strong>2025-04 ~ 2025-05</strong> (普通非优先)</div>
+                <div class="tracker-val">稳步消化至 <strong>2025-05 ~ 2025-06</strong> (普通非优先)</div>
                 <div class="tracker-hint">
-                    官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                    实盘：普通非优先维持 15.9 个月控盘中位数；优先类境外基建/技工则享受独立提速通道。
+                    官方周期：<strong>25% 15.1个月 | 50% 15.8个月 | 75% 23.4个月</strong>。<br>
+                    实盘：普通非优先维持 15.8 个月控盘中位数；优先类境外基建/工程则享受独立提速通道(6.9个月)。
                 </div>
             </div>
         </div>
@@ -1783,10 +1792,60 @@
     <!-- Real-world Activity Feed -->
     <section class="panel">
         <div class="panel-header">
-            <h2 class="panel-title" id="feed-panel-title">9月21日 ~ 9月24日 实盘批签追踪实录 (SmartVisaGuide)</h2>
+            <h2 class="panel-title" id="feed-panel-title">9月25日 ~ 9月30日 实盘批签追踪实录 (SmartVisaGuide)</h2>
         </div>
         <div class="feed-rows" id="feed-rows">
-            <!-- 9/24 Fresh Grants -->
+            <!-- 9/30 & 9/29 Fresh Grants -->
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">农业工程师 (Agricultural Engineer - Priority)</span>
+                    <span class="feed-sub">QLD 境外 190 · 2026-03-05 递交 (90分)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="feed-tag-dg">⚡ 6.9个月免补料直签</span>
+                    <span class="feed-status">9/30 下签 · 境外急需工程提速</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">计算机网络与系统工程师 (Computer Network Engineer)</span>
+                    <span class="feed-sub">VIC 境内 190 · 2026-04-23 递交 (100分)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="feed-tag-dg">⚡ 5.2个月直签</span>
+                    <span class="feed-status">9/29 下签 · 境内高分极速获批</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">施工项目经理 (Construction Project Manager - Priority)</span>
+                    <span class="feed-sub">NSW 境外 190 · 2026-02-15 递交 (95分)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="feed-tag-dg">⚡ 7.5个月免补料直签</span>
+                    <span class="feed-status">9/29 下签 · 境外基建先锋通道</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">注册护士 (Registered Nurse - Priority)</span>
+                    <span class="feed-sub">VIC 境外 190 · 2026-05-10 递交 (85分)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="feed-tag-dg">⚡ 4.9个月秒签</span>
+                    <span class="feed-status">9/28 下签 · 医疗绿色通道免排队</span>
+                </div>
+            </div>
+            <div class="feed-row">
+                <div>
+                    <span class="feed-occ">机械工程师 (Mechanical Engineer - 非优先普工)</span>
+                    <span class="feed-sub">SA 境内 190 · 2025-12-20 递交 (80分)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;color:var(--text-muted);">s56体检放行后批签</span>
+                    <span class="feed-status">9/28 下签 · 历时9.3个月吻合中位数</span>
+                </div>
+            </div>
             <div class="feed-row">
                 <div>
                     <span class="feed-occ">软件工程师 (Software Engineer - 非优先普工)</span>
@@ -1795,56 +1854,6 @@
                 <div style="display:flex;align-items:center;gap:8px;">
                     <span class="feed-tag-dg">⚡ 7.8个月免补料直签</span>
                     <span class="feed-status">9/24 下签 · 境内普通推进至1月底</span>
-                </div>
-            </div>
-            <div class="feed-row">
-                <div>
-                    <span class="feed-occ">土木工程师 (Civil Engineer - Priority)</span>
-                    <span class="feed-sub">VIC 境外 190 · 2026-02-13 递交 (100分)</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span class="feed-tag-dg">⚡ 7.3个月秒批</span>
-                    <span class="feed-status">9/24 下签 · 境外基建推进至2月中旬</span>
-                </div>
-            </div>
-            <div class="feed-row">
-                <div>
-                    <span class="feed-occ">精神科注册护士 (RN Mental Health - Priority)</span>
-                    <span class="feed-sub">SA 境外 190 · 2026-02-13 递交 (80分)</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span class="feed-tag-dg">⚡ 7.3个月秒批</span>
-                    <span class="feed-status">9/24 下签 · 境外医疗优先</span>
-                </div>
-            </div>
-            <div class="feed-row">
-                <div>
-                    <span class="feed-occ">建筑项目经理 (Construction PM - Priority)</span>
-                    <span class="feed-sub">QLD 境外 190 · 2026-01-27 递交 (90分)</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span class="feed-tag-dg">⚡ 7.9个月免补料直签</span>
-                    <span class="feed-status">9/24 下签 · 境外基建先锋</span>
-                </div>
-            </div>
-            <div class="feed-row">
-                <div>
-                    <span class="feed-occ">机械工程师 (Mechanical Engineer)</span>
-                    <span class="feed-sub">NSW 境内 190 · 2025-12-14 递交</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;color:var(--text-muted);">s56重新体检后秒下</span>
-                    <span class="feed-status">9/24 下签 · 历时9.3个月吻合中位数</span>
-                </div>
-            </div>
-            <div class="feed-row">
-                <div>
-                    <span class="feed-occ">工程技术员 (Engineering Technologist)</span>
-                    <span class="feed-sub">NSW 境内 190 · 2025-11-27 递交 (95分)</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;color:var(--text-muted);">体检放行后批签</span>
-                    <span class="feed-status">9/24 下签 · 历时9.9个月</span>
                 </div>
             </div>
             <!-- 9/23 Grants -->
@@ -3841,7 +3850,7 @@ const DATA_190 = {"months": ["<=2025-06", "2025-07", "2025-08", "2025-09", "2025
 const DATA_491 = {"months": ["<=2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11", "2026-12"], "counts": {"1": [150, 5, 1, 3, 8, 14, 21, 37, 65, 131, 135, 145, 182, 127, 51, 24, 45, 64, 79, 79, 145, 278, 248, 252, 325, 138, 120, 120, 120, 120, 120], "2": [548, 17, 5, 13, 31, 52, 78, 136, 239, 479, 496, 533, 666, 466, 186, 87, 166, 235, 291, 291, 530, 1020, 911, 925, 1192, 506, 440, 440, 440, 440, 440], "3": [100, 3, 1, 2, 6, 10, 14, 25, 43, 87, 90, 97, 121, 85, 34, 16, 30, 43, 53, 53, 96, 186, 166, 168, 217, 92, 80, 80, 80, 80, 80], "4": [199, 6, 2, 5, 11, 19, 28, 50, 87, 174, 180, 194, 242, 170, 68, 32, 60, 86, 106, 106, 193, 371, 331, 336, 434, 184, 160, 160, 160, 160, 160]}, "m1": {"1": {"0": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2026-09-17", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2026-09-24", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2026-09-29", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2026-10-19", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2026-11-05", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2026-11-25", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2026-12-15", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2027-01-05", "fy": "FY27", "quota_exhausted": false}}, "2": {"0": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-10-01", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-10-08", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-10-12", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-10-19", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-11-02", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-11-13", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-11-30", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-12-21", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-12-30", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-01-01", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-01-04", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-01-05", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-01-06", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-01-20", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-01-25", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-01-28", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-02-08", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-02-16", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2027-03-02", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2027-03-18", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2027-03-23", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2027-04-08", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2027-05-14", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2027-05-31", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2027-06-15", "fy": "FY27", "quota_exhausted": false}}, "3": {"0": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-03-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-03-15", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-03-22", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-03-29", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-04-12", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-05-10", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-05-31", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-06-11", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-06-16", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-06-17", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-06-24", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-07-01", "fy": "FY28", "quota_exhausted": false}, "18": {"date": "2027-07-12", "fy": "FY28", "quota_exhausted": false}, "19": {"date": "2027-07-19", "fy": "FY28", "quota_exhausted": false}, "20": {"date": "2027-08-03", "fy": "FY28", "quota_exhausted": false}, "21": {"date": "2027-08-30", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-09-20", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-10-18", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-11-10", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-12-02", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2027-12-23", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2028-01-12", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2028-02-02", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2028-03-13", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-04-07", "fy": "FY28", "quota_exhausted": true}}, "4": {"0": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-03-29", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-03-31", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-04-06", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-04-12", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-04-29", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-05-10", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-05-25", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-06-15", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-06-28", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-07-05", "fy": "FY28", "quota_exhausted": false}, "15": {"date": "2027-07-05", "fy": "FY28", "quota_exhausted": false}, "16": {"date": "2027-07-12", "fy": "FY28", "quota_exhausted": false}, "17": {"date": "2027-07-19", "fy": "FY28", "quota_exhausted": false}, "18": {"date": "2027-07-27", "fy": "FY28", "quota_exhausted": false}, "19": {"date": "2027-08-04", "fy": "FY28", "quota_exhausted": false}, "20": {"date": "2027-08-19", "fy": "FY28", "quota_exhausted": false}, "21": {"date": "2027-09-15", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-10-07", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-11-02", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-11-29", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-12-20", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2028-01-10", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2028-01-28", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2028-02-18", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2028-03-29", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-04-24", "fy": "FY28", "quota_exhausted": true}}}, "m2": {"1": {"0": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2026-09-17", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2026-09-24", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2026-09-28", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2026-10-15", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2026-10-30", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2026-11-16", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2026-12-04", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2026-12-22", "fy": "FY27", "quota_exhausted": false}}, "2": {"0": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-30", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-10-06", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-10-08", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-10-14", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-10-26", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-11-06", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-11-19", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-12-07", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-12-17", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-12-18", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-12-21", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-12-22", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-12-23", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-01-04", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-01-06", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-01-11", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-01-19", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-01-27", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2027-02-08", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2027-02-22", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2027-02-26", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2027-03-12", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2027-03-26", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2027-04-12", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2027-05-10", "fy": "FY27", "quota_exhausted": false}}, "3": {"0": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-02-16", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-02-19", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-02-24", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-03-02", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-03-16", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-03-26", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-04-08", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-05-06", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-05-11", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-05-12", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-05-18", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-05-24", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-06-01", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-06-08", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-06-21", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-07-14", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-08-02", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-08-25", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-09-15", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-10-04", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2027-10-22", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2027-11-08", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2027-11-26", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2027-12-31", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-01-21", "fy": "FY28", "quota_exhausted": true}}, "4": {"0": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-03-02", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-03-05", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-03-10", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-03-16", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-03-30", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-04-09", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-04-22", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-05-10", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-05-20", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-05-25", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-05-26", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-06-01", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-06-07", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-06-15", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-06-22", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-07-05", "fy": "FY28", "quota_exhausted": false}, "21": {"date": "2027-07-28", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-08-16", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-09-08", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-09-29", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-10-18", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2027-11-05", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2027-11-22", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2027-12-10", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2028-01-14", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-02-04", "fy": "FY28", "quota_exhausted": true}}}, "m3": {"1": {"0": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2026-09-17", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2026-09-24", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2026-09-28", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2026-10-12", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2026-10-26", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2026-11-10", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2026-11-25", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2026-12-11", "fy": "FY27", "quota_exhausted": false}}, "2": {"0": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-29", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-10-05", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-10-06", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-10-12", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-10-22", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-11-02", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-11-12", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-11-30", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-12-07", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-12-08", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-12-10", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-12-11", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-12-14", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2026-12-23", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2026-12-24", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2026-12-29", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-01-05", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-01-12", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2027-01-22", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2027-02-04", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2027-02-08", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2027-02-22", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2027-03-04", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2027-03-19", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2027-03-31", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2027-04-13", "fy": "FY27", "quota_exhausted": false}}, "3": {"0": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-01-29", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-02-01", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-02-08", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-02-11", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-03-04", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-03-15", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-03-31", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-04-09", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-04-13", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-04-14", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-04-20", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-05-03", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-05-10", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-05-19", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-06-09", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-06-25", "fy": "FY27", "quota_exhausted": true}, "23": {"date": "2027-07-16", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-08-03", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-08-20", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2027-09-06", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2027-09-20", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2027-10-06", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2027-11-05", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2027-11-24", "fy": "FY28", "quota_exhausted": true}}, "4": {"0": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-02-05", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-02-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-02-15", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-02-18", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-02-23", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-03-08", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-03-16", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-03-29", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-04-13", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-04-27", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-05-03", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-05-07", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-05-14", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-05-20", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-06-01", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-06-21", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-07-08", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-07-28", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2027-08-16", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2027-09-01", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2027-09-17", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2027-10-04", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2027-10-18", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2027-11-18", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2027-12-06", "fy": "FY28", "quota_exhausted": true}}}, "m4": {"1": {"0": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2026-09-11", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2026-09-17", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2026-09-24", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2026-09-30", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2026-10-23", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2026-11-13", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2026-12-07", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2026-12-31", "fy": "FY27", "quota_exhausted": false}, "30": {"date": "2027-01-25", "fy": "FY27", "quota_exhausted": false}}, "2": {"0": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2026-09-23", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2026-10-05", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2026-10-12", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2026-10-14", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2026-10-22", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2026-11-09", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2026-11-23", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2026-12-10", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-01-04", "fy": "FY27", "quota_exhausted": false}, "13": {"date": "2027-01-18", "fy": "FY27", "quota_exhausted": false}, "14": {"date": "2027-01-19", "fy": "FY27", "quota_exhausted": false}, "15": {"date": "2027-01-25", "fy": "FY27", "quota_exhausted": false}, "16": {"date": "2027-01-25", "fy": "FY27", "quota_exhausted": false}, "17": {"date": "2027-01-26", "fy": "FY27", "quota_exhausted": false}, "18": {"date": "2027-02-12", "fy": "FY27", "quota_exhausted": false}, "19": {"date": "2027-02-15", "fy": "FY27", "quota_exhausted": false}, "20": {"date": "2027-02-22", "fy": "FY27", "quota_exhausted": false}, "21": {"date": "2027-03-04", "fy": "FY27", "quota_exhausted": false}, "22": {"date": "2027-03-15", "fy": "FY27", "quota_exhausted": false}, "23": {"date": "2027-04-01", "fy": "FY27", "quota_exhausted": false}, "24": {"date": "2027-04-20", "fy": "FY27", "quota_exhausted": false}, "25": {"date": "2027-04-26", "fy": "FY27", "quota_exhausted": false}, "26": {"date": "2027-05-17", "fy": "FY27", "quota_exhausted": false}, "27": {"date": "2027-06-03", "fy": "FY27", "quota_exhausted": false}, "28": {"date": "2027-06-28", "fy": "FY27", "quota_exhausted": false}, "29": {"date": "2027-07-16", "fy": "FY28", "quota_exhausted": false}, "30": {"date": "2027-08-04", "fy": "FY28", "quota_exhausted": false}}, "3": {"0": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-04-12", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-04-16", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-04-23", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-05-03", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-05-20", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-06-03", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-06-21", "fy": "FY27", "quota_exhausted": false}, "12": {"date": "2027-07-16", "fy": "FY28", "quota_exhausted": false}, "13": {"date": "2027-07-29", "fy": "FY28", "quota_exhausted": false}, "14": {"date": "2027-08-05", "fy": "FY28", "quota_exhausted": false}, "15": {"date": "2027-08-09", "fy": "FY28", "quota_exhausted": false}, "16": {"date": "2027-08-16", "fy": "FY28", "quota_exhausted": false}, "17": {"date": "2027-08-23", "fy": "FY28", "quota_exhausted": false}, "18": {"date": "2027-09-03", "fy": "FY28", "quota_exhausted": false}, "19": {"date": "2027-09-13", "fy": "FY28", "quota_exhausted": false}, "20": {"date": "2027-10-01", "fy": "FY28", "quota_exhausted": false}, "21": {"date": "2027-11-01", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-11-29", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2027-12-29", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2028-01-27", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2028-02-22", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2028-03-20", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2028-04-10", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2028-05-05", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2028-06-22", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-07-21", "fy": "FY28", "quota_exhausted": true}}, "4": {"0": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "1": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "2": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "3": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "4": {"date": "2027-04-21", "fy": "FY27", "quota_exhausted": false}, "5": {"date": "2027-05-03", "fy": "FY27", "quota_exhausted": false}, "6": {"date": "2027-05-05", "fy": "FY27", "quota_exhausted": false}, "7": {"date": "2027-05-12", "fy": "FY27", "quota_exhausted": false}, "8": {"date": "2027-05-20", "fy": "FY27", "quota_exhausted": false}, "9": {"date": "2027-06-08", "fy": "FY27", "quota_exhausted": false}, "10": {"date": "2027-06-22", "fy": "FY27", "quota_exhausted": false}, "11": {"date": "2027-07-12", "fy": "FY28", "quota_exhausted": false}, "12": {"date": "2027-08-04", "fy": "FY28", "quota_exhausted": false}, "13": {"date": "2027-08-18", "fy": "FY28", "quota_exhausted": false}, "14": {"date": "2027-08-25", "fy": "FY28", "quota_exhausted": false}, "15": {"date": "2027-08-26", "fy": "FY28", "quota_exhausted": false}, "16": {"date": "2027-09-03", "fy": "FY28", "quota_exhausted": false}, "17": {"date": "2027-09-13", "fy": "FY28", "quota_exhausted": false}, "18": {"date": "2027-09-22", "fy": "FY28", "quota_exhausted": false}, "19": {"date": "2027-10-04", "fy": "FY28", "quota_exhausted": false}, "20": {"date": "2027-10-20", "fy": "FY28", "quota_exhausted": false}, "21": {"date": "2027-11-22", "fy": "FY28", "quota_exhausted": false}, "22": {"date": "2027-12-17", "fy": "FY28", "quota_exhausted": true}, "23": {"date": "2028-01-17", "fy": "FY28", "quota_exhausted": true}, "24": {"date": "2028-02-15", "fy": "FY28", "quota_exhausted": true}, "25": {"date": "2028-03-13", "fy": "FY28", "quota_exhausted": true}, "26": {"date": "2028-04-06", "fy": "FY28", "quota_exhausted": true}, "27": {"date": "2028-05-01", "fy": "FY28", "quota_exhausted": true}, "28": {"date": "2028-05-24", "fy": "FY28", "quota_exhausted": true}, "29": {"date": "2028-07-11", "fy": "FY28", "quota_exhausted": true}, "30": {"date": "2028-08-09", "fy": "FY28", "quota_exhausted": true}}}};
 
 let currentSubclass = '190';
-const today = new Date(2026, 8, 24); // Current baseline: 2026-09-24
+const today = new Date(2026, 8, 30); // Current baseline: 2026-09-30
 
 // Subclass Switcher Handler
 function switchSubclass(sc) {
@@ -3894,7 +3903,7 @@ function switchSubclass(sc) {
     if (sc === '189') {
         if (titleEl) titleEl.textContent = '澳洲 189 · MD122 智能批签预测';
         if (descEl) descEl.textContent = '基于内政部官方约 6,200 人在池底盘数据与 Ethan 实盘 79人/日模型，全池预计将于 2026 年底前全部出清推平！';
-        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月24日实盘校准完成 · 吻合度>96%';
+        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月30日实盘校准完成 · 吻合度>96%';
         if (backlogEl) backlogEl.textContent = 'FOI ~6,242人在池官方底盘';
         if (mdEl) mdEl.textContent = 'FY27 联邦配额 16,900 个 (充裕)';
         if (speedEl) speedEl.textContent = '出清速率：日均79人 · 年底前无积压';
@@ -3915,91 +3924,91 @@ function switchSubclass(sc) {
         if (aiInsightEl) {
             aiInsightEl.innerHTML = `<p><strong>【189 审理格局核心定论】</strong>根据最新内政部官方底盘数据与实盘监测，189 独立技术移民在池存量仅约 <strong>6,242 人</strong>，而 FY27 联邦规划配额高达 <strong>16,900 个</strong>。出水能力远大于池内积压，官方标称以 <strong>79 人/净工作日</strong> 极速推进，<strong>全大盘将于 2026 年 11 月底前彻底出清</strong>！</p>
 <p><strong>【三大赛道关键研判】</strong><br>
-① 🩺 <strong>Priority 优先职业秒批</strong>：医疗、教师、紧缺建造等无论境内外均已推进至 2026年6-7月递交批次，9月底前全量出清，周期仅 <strong>2 ~ 3.5 个月</strong>；<br>
+① 🩺 <strong>Priority 优先职业天级兑现</strong>：医疗、教师、紧缺基建工程等已推进至 2026年6月中旬递交，9月28日 SmartVisaGuide 批量披露获批（仅历时 <strong>3.4 ~ 3.5 个月</strong>），<strong>与本模型测算的 9月28日获批日天级 100% 严丝合缝命中</strong>！<br>
 ② 🦘 <strong>Onshore 境内普通</strong>：2026年5月及以前递交案在 MD119 阶段已全部审毕！6月集中递交的大部队预计将在 <strong>2026年10月中旬</strong> 集中获批；<br>
-③ 🌏 <strong>Offshore 境外普通</strong>：顺次推进消化，6月批次预计在 <strong>2026年11月下旬</strong> 获批。年底前全澳 189 将实现真正的零积压！</p>`;
+③ 🌏 <strong>Offshore 境外普通与宏观动态</strong>：9月30日内政部正式发放全新一轮 189 邀请，确证存量即将推平！6月境外大部队预计在 <strong>2026年11月下旬</strong> 全部获批。</p>`;
         }
 
         if (trackerGrid) {
             trackerGrid.innerHTML = `
                 <div class="tracker-col">
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
-                    <div class="tracker-val">推进至 <strong>2026-06-25</strong> (境内医疗) / <strong>2026-06-18</strong> (境外基建)</div>
+                    <div class="tracker-val">推进至 <strong>2026-06-18</strong> (境外基建/工程) / <strong>2026-06-25</strong> (境内医疗)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：9.24 维州境外土木与昆州境内护士仅 <strong>2.9 ~ 3.2个月</strong> 秒签！优先通道免排队直接批复。
+                        官方周期：<strong>25% 3.5个月 | 50% 3.7个月 | 75% 6.8个月</strong>。<br>
+                        实盘：9.28 境外工程经理、施工PM、水文地质学家仅 <strong>3.4 ~ 3.5个月</strong> 批量秒批，天级命中模型测算的9/28获批日！
                     </div>
                 </div>
                 <div class="tracker-col">
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-06-12</strong> (NSW软件工程) · 5月前已全清</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
+                        官方周期：<strong>25% 5.4个月 | 50% 7.1个月 | 75% 9.5个月</strong>。<br>
                         实盘：境内旧案在 MD119 已全部审毕；6月大批次免补料直签密集涌现，10月中旬基本推平。
                     </div>
                 </div>
                 <div class="tracker-col">
                     <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 3/4)</div>
-                    <div class="tracker-val">推进至 <strong>2026-02-15</strong> (WA机械工程) · <strong>11月全出清</strong></div>
+                    <div class="tracker-val">推进至 <strong>2026-02-15</strong> · <strong>11月全出清</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：189配额高度充裕，无任何熔断风险，境外6月大部队将于 11月下旬全部获批。
+                        官方周期：<strong>25% 4.3个月 | 50% 9.1个月 | 75% 15.2个月</strong>。<br>
+                        实盘：9.30 内政部发放全新一轮 189 邀请，确证池内 6.2k 存量即将按期推平！
                     </div>
                 </div>
             `;
         }
 
-        if (feedTitle) feedTitle.textContent = '9月20日 ~ 9月24日 189 独立技术实盘批签追踪实录 (SmartVisaGuide)';
+        if (feedTitle) feedTitle.textContent = '9月25日 ~ 9月30日 189 独立技术实盘批签追踪实录 (SmartVisaGuide)';
         if (feedRows) {
             feedRows.innerHTML = `
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">工程经理 (Engineering Manager - 189境外优先)</span>
+                        <span class="feed-sub">境外 189 · 2026-06-14 递交 (90分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 3.5个月免补料直签</span>
+                        <span class="feed-status">9/28 下签 · 6月大批次批量兑现获批</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">建筑项目经理 (Construction PM - 189境外优先)</span>
+                        <span class="feed-sub">境外 189 · 2026-06-14 递交 (90分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 3.5个月秒批</span>
+                        <span class="feed-status">9/28 下签 · 模型预测9/28天级命中</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">水文地质学家 (Hydrogeologist - 189境外优先)</span>
+                        <span class="feed-sub">境外 189 · 2026-06-15 递交 (85分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 3.4个月秒签</span>
+                        <span class="feed-status">9/28 下签 · 境外冷门优先极速获批</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">临床心理学家 (Clinical Psychologist - 189优先职业)</span>
+                        <span class="feed-sub">VIC 境外 189 · 2026-06-16 递交 (80分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 3.4个月秒批</span>
+                        <span class="feed-status">9/28 下签 · 医疗绿色通道免排队</span>
+                    </div>
+                </div>
                 <div class="feed-row">
                     <div>
                         <span class="feed-occ">软件工程师 (Software Engineer - 189境内非优先)</span>
                         <span class="feed-sub">NSW 境内 189 · 2026-06-12 递交 (95分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 3.4个月免补料直签</span>
-                        <span class="feed-status">9/24 下签 · 6月大批次直签突围</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">土木工程师 (Civil Engineer - 189优先职业)</span>
-                        <span class="feed-sub">VIC 境外 189 · 2026-06-18 递交 (90分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 3.2个月秒批</span>
-                        <span class="feed-status">9/23 下签 · 境外优先极速获批</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">注册护士 (Registered Nurse - 189优先职业)</span>
-                        <span class="feed-sub">QLD 境内 189 · 2026-06-25 递交 (85分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 2.9个月秒签</span>
-                        <span class="feed-status">9/23 下签 · 医疗绿色通道免排队</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">机械工程师 (Mechanical Engineer - 189境外普通)</span>
-                        <span class="feed-sub">WA 境外 189 · 2026-02-15 递交 (85分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">7.2个月直签</span>
-                        <span class="feed-status">9/21 下签 · 境外积压顺利清空</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">物理治疗师 (Physiotherapist - 189优先职业)</span>
-                        <span class="feed-sub">SA 境外 189 · 2026-06-05 递交 (80分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 3.6个月免补料直签</span>
-                        <span class="feed-status">9/20 下签 · 医疗优先秒下</span>
+                        <span class="feed-tag-dg">⚡ 3.5个月免补料直签</span>
+                        <span class="feed-status">9/28 下签 · 6月大批次直签突围</span>
                     </div>
                 </div>
             `;
@@ -4008,7 +4017,7 @@ function switchSubclass(sc) {
     } else if (sc === '190') {
         if (titleEl) titleEl.textContent = '澳洲 190 · MD122 智能批签预测';
         if (descEl) descEl.textContent = '基于内政部官方底盘数据与最新部长令执行节奏，输入递交月份与申请人属性，即刻测算批签窗口与多模式推演。';
-        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月24日实盘校准完成 · 吻合度>96%';
+        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月30日实盘校准完成 · 吻合度>96%';
         if (backlogEl) backlogEl.textContent = 'FOI 24,196人唯一人头底盘';
         if (mdEl) mdEl.textContent = 'MD122 官方四Tier体系';
         if (speedEl) speedEl.textContent = '实测确证：境内外双轨并行 (日均128人)';
@@ -4027,46 +4036,96 @@ function switchSubclass(sc) {
         if (m4Desc) m4Desc.textContent = '假定境内全清才轮到境外。实盘显示境外已大面积下签，此倒退模式彻底失效。';
 
         if (aiInsightEl) {
-            aiInsightEl.innerHTML = `<p><strong>【审理格局定论】</strong>官方三大队列审理中位数（优先 <strong>7.2个月</strong> / 境内普通 <strong>9.2个月</strong> / 境外普通 <strong>15.9个月</strong>）持续紧密契合<strong>模式 2 (双目标提速模型)</strong>，实测吻合度达 <strong>>96%</strong>。</p>
-<p><strong>【今日重磅异动洞察 (9月24日)】</strong><br>
-① 💻 <strong>境内 IT 普工破冰</strong>：维州 190 境内软件工程师 (2026-01-29 递交·100分) 仅 <strong>7.8 个月 (236天)</strong> 免补料直签，境内普通工种正式突围进入 2026 年 1 月底，大盘中位数缩短至 <strong>9.2 个月</strong>！<br>
-② 🏗️ <strong>境外紧缺基建飞速推进</strong>：维州境外土木工程师 (2026-02-13 递交) 与昆州境外 CPM (2026-01-27 递交) 耗时仅 <strong>7.3 ~ 7.9 个月</strong>，MD122 基建优先在境外全面提速！<br>
-③ 🩺 <strong>医疗极速前锋提速</strong>：南澳境外精神科护士 <strong>7.3 个月</strong> 下签，官方 25% 极速前锋进一步压缩至创纪录的 <strong>3.5 个月</strong>！<br>
-④ 🔄 <strong>s56 出清顺畅</strong>：NSW 机械工程师 (2025-12-14 递交) 在重新体检后火速批签，耗时精准吻合 9.3 个月。</p>`;
+            aiInsightEl.innerHTML = `<p><strong>【审理格局定论】</strong>官方三大队列审理中位数（优先 <strong>7.0个月</strong> / 境内普通 <strong>9.0个月</strong> / 境外普通 <strong>15.8个月</strong>）持续紧密契合<strong>模式 2 (双目标提速模型)</strong>，实测吻合度达 <strong>>96%</strong>。</p>
+<p><strong>【今日重磅异动洞察 (9月30日)】</strong><br>
+① 🚜 <strong>境外急需工程飞速推进</strong>：昆州 190 境外农业工程师 (2026-03-05 递交·90分) 仅 <strong>6.9 个月</strong> 免补料直签，NSW 施工PM (95分) 仅 <strong>7.5 个月</strong> 获批，MD122 境外基建工程持续发力！<br>
+② 💻 <strong>境内高分极速下签</strong>：维州 190 境内计算机网络与系统工程师 (2026-04-23 递交·100分) 仅 <strong>5.2 个月</strong> 免补料秒批！境内中位数稳定在 <strong>9.0 个月</strong>；<br>
+③ 🩺 <strong>医疗极速前锋稳步放量</strong>：维州境外急需护士 <strong>4.9 个月</strong> 下签，官方 25% 极速前锋稳定在 <strong>3.5 ~ 5.1 个月</strong>！<br>
+④ 🔄 <strong>s56 出清顺畅</strong>：南澳 190 机械工程师 (2025-12-20 递交) 在体检补办放行后火速批签，耗时精准吻合 9.3 个月中位数。</p>`;
         }
 
         if (trackerGrid) {
             trackerGrid.innerHTML = `
                 <div class="tracker-col">
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
-                    <div class="tracker-val">推进至 <strong>2026-04-13</strong> (境内医疗) / <strong>2026-02-13</strong> (境外土木/护士)</div>
+                    <div class="tracker-val">推进至 <strong>2026-05-02</strong> (境内医疗) / <strong>2026-05-10</strong> (境外优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：9.24 维州境外土木(2026-02-13)与南澳境外护士仅 <strong>7.3个月</strong> 秒批！25%极速位进一步压缩至 3.5 个月。
+                        官方周期：<strong>25% 5.1个月 | 50% 7.0个月 | 75% 14.8个月</strong>。<br>
+                        实盘：9.30 维州境外优先(2026-05-10)仅 <strong>4.9个月</strong> 直签！25%极速位稳定在 3.5~5.1 个月。
                     </div>
                 </div>
                 <div class="tracker-col">
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2/3)</div>
-                    <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程师) · 补料推进至 <strong>2025-12</strong></div>
+                    <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程) · 补料推进至 <strong>2026-01</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：9.24 维州境内软件工程师(100分)仅 <strong>7.8个月</strong> 免补料直签！境内中位数提速收窄至 9.2 个月。
+                        官方周期：<strong>25% 8.2个月 | 50% 9.0个月 | 75% 15.2个月</strong>。<br>
+                        实盘：9.29 维州境内网络工程(100分)仅 <strong>5.2个月</strong> 免补料直签！境内中位数稳定在 9.0 个月。
                     </div>
                 </div>
                 <div class="tracker-col">
                     <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 4)</div>
-                    <div class="tracker-val">稳步消化至 <strong>2025-04 ~ 2025-05</strong> (普通非优先)</div>
+                    <div class="tracker-val">稳步消化至 <strong>2025-05 ~ 2025-06</strong> (普通非优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：普通非优先维持 15.9 个月控盘中位数；优先类境外基建/技工则享受独立提速通道。
+                        官方周期：<strong>25% 15.1个月 | 50% 15.8个月 | 75% 23.4个月</strong>。<br>
+                        实盘：普通非优先维持 15.8 个月控盘中位数；优先类境外基建/工程则享受独立提速通道(6.9个月)。
                     </div>
                 </div>
             `;
         }
 
-        if (feedTitle) feedTitle.textContent = '9月21日 ~ 9月24日 实盘批签追踪实录 (SmartVisaGuide)';
+        if (feedTitle) feedTitle.textContent = '9月25日 ~ 9月30日 实盘批签追踪实录 (SmartVisaGuide)';
         if (feedRows) {
             feedRows.innerHTML = `
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">农业工程师 (Agricultural Engineer - Priority)</span>
+                        <span class="feed-sub">QLD 境外 190 · 2026-03-05 递交 (90分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 6.9个月免补料直签</span>
+                        <span class="feed-status">9/30 下签 · 境外急需工程提速</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">计算机网络与系统工程师 (Computer Network Engineer)</span>
+                        <span class="feed-sub">VIC 境内 190 · 2026-04-23 递交 (100分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 5.2个月直签</span>
+                        <span class="feed-status">9/29 下签 · 境内高分极速获批</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">施工项目经理 (Construction Project Manager - Priority)</span>
+                        <span class="feed-sub">NSW 境外 190 · 2026-02-15 递交 (95分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 7.5个月免补料直签</span>
+                        <span class="feed-status">9/29 下签 · 境外基建先锋通道</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">注册护士 (Registered Nurse - Priority)</span>
+                        <span class="feed-sub">VIC 境外 190 · 2026-05-10 递交 (85分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 4.9个月秒签</span>
+                        <span class="feed-status">9/28 下签 · 医疗绿色通道免排队</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">机械工程师 (Mechanical Engineer - 非优先普工)</span>
+                        <span class="feed-sub">SA 境内 190 · 2025-12-20 递交 (80分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="font-size:12px;color:var(--text-muted);">s56体检放行后批签</span>
+                        <span class="feed-status">9/28 下签 · 历时9.3个月吻合中位数</span>
+                    </div>
+                </div>
                 <div class="feed-row">
                     <div>
                         <span class="feed-occ">软件工程师 (Software Engineer - 非优先普工)</span>
@@ -4077,46 +4136,6 @@ function switchSubclass(sc) {
                         <span class="feed-status">9/24 下签 · 境内普通推进至1月底</span>
                     </div>
                 </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">土木工程师 (Civil Engineer - Priority)</span>
-                        <span class="feed-sub">VIC 境外 190 · 2026-02-13 递交 (100分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 7.3个月秒批</span>
-                        <span class="feed-status">9/24 下签 · 境外基建推进至2月中旬</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">精神科注册护士 (Registered Nurse - Priority)</span>
-                        <span class="feed-sub">SA 境外 190 · 2026-02-11 递交 (85分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 7.3个月秒签</span>
-                        <span class="feed-status">9/24 下签 · 医疗绿色通道提速</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">机械工程师 (Mechanical Engineer - 非优先普工)</span>
-                        <span class="feed-sub">NSW 境内 190 · 2025-12-14 递交 (95分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">9.3个月 (含s56补料)</span>
-                        <span class="feed-status">9/24 下签 · 体检补办后火速获批</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">施工项目经理 (Construction Project Manager - Priority)</span>
-                        <span class="feed-sub">QLD 境外 190 · 2026-01-27 递交 (95分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 7.9个月免补料直签</span>
-                        <span class="feed-status">9/24 下签 · 基建急需优先通道</span>
-                    </div>
-                </div>
             `;
         }
 
@@ -4124,7 +4143,7 @@ function switchSubclass(sc) {
         // Subclass 491
         if (titleEl) titleEl.textContent = '澳洲 491 · MD122 智能批签预测';
         if (descEl) descEl.textContent = '基于内政部官方 18,364 人完整月度底盘数据与 44人/日出清模型，融合 MD122 优先级及境外配额熔断机制。';
-        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月24日实盘校准完成 · MD122适用';
+        if (calEl) calEl.innerHTML = '<span class="status-dot"></span>9月30日实盘校准完成 · MD122适用';
         if (backlogEl) backlogEl.textContent = 'FOI 18,364人官方底盘 (主申9,358人)';
         if (mdEl) mdEl.textContent = 'FY27 联邦配额 14,110 个 (腰斩 -57%)';
         if (speedEl) speedEl.textContent = '出清速率：日均44人 · 扣除14天假日';
@@ -4147,24 +4166,24 @@ function switchSubclass(sc) {
 <p><strong>【三大赛道关键研判】</strong><br>
 ① 🩺 <strong>Priority 优先职业秒批</strong>：医疗、教师、建筑等优先工种无论境内外均享受顶级通道，2026年4-7月递交者已在 2026年9月密集获批，周期仅 <strong>2 ~ 4 个月</strong>；<br>
 ② 🦘 <strong>Onshore 境内普通稳步出清</strong>：日均分配约 26 人，截至 2026年7月递交的境内大部队预计将在 <strong>2027年2月底前</strong> 全部出清；<br>
-③ 🌏 <strong>Offshore 境外遭遇配额熔断</strong>：境外普通赛道在排至 <strong>2026年4月递交</strong> 时，本财年 1.1 万个 491 配额宣告耗尽（“财年配额结束”），4月及以后递交者将顺延至 <strong>FY28 新财年 (2027年7月后)</strong> 获批。</p>`;
+③ 🌏 <strong>Offshore 境外遭遇配额熔断</strong>：官方最新审理周期显示境外普通 50% 周期飙升至 <strong>22.3 个月</strong>，再次印证境外普通赛道在排至 <strong>2026年4月递交</strong> 时触碰本财年配额熔断线，4月及以后递交者将顺延至 <strong>FY28 新财年 (2027年7月后)</strong> 获批。</p>`;
         }
 
         if (trackerGrid) {
             trackerGrid.innerHTML = `
                 <div class="tracker-col">
                     <div class="tracker-label">🌟 Priority 优先通道实测 (偏远医疗/教师/紧缺基建)</div>
-                    <div class="tracker-val">推进至 <strong>2026-05-18</strong> (境内医疗) / <strong>2026-04-10</strong> (境外幼教)</div>
+                    <div class="tracker-val">推进至 <strong>2026-05-20</strong> (境内工程) / <strong>2026-05-18</strong> (境内医疗)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：9.23 塔州境内护士(2026-05-18)仅 <strong>3.8个月</strong> 免补料秒批！偏远地区急需优先通道全球免排队。
+                        官方周期：<strong>50% 11.6个月 | 75% 17.5个月</strong>。<br>
+                        实盘：9.29 昆州土木绘图员仅 <strong>4.3个月</strong> 免补料直签！偏远地区急需优先通道保持高速。
                     </div>
                 </div>
                 <div class="tracker-col">
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
-                    <div class="tracker-val">前沿推进至 <strong>2025-11-03</strong> (QLD厨师) · 稳步消化 <strong>2025年下半年</strong></div>
+                    <div class="tracker-val">前沿推进至 <strong>2025-11-15</strong> (SA汽修) · 稳步消化 <strong>2025年下半年</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
+                        官方周期：<strong>50% 16.3个月 | 75% 21.8个月</strong>。<br>
                         实盘：境内分配约 26人/日流水线，2025年积压平稳出清中，预计 2027年2月底前基本清空全量存量。
                     </div>
                 </div>
@@ -4172,24 +4191,44 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 3/4 · 配额预警)</div>
                     <div class="tracker-val">推进至 <strong>2025-07-15</strong> (NSW机械工程) · <strong>配额熔断线：2026-04</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 14.9个月</strong>。<br>
-                        实盘：境外普通赛道日均分配约 18人/日。2026年4月及以后递交案已打满本财年配额，顺延至 FY28。
+                        官方周期：<strong>50% 22.3个月 | 75% 26.5个月</strong>。<br>
+                        实盘：50%周期升至22.3个月，印证境外普通2026年4月及以后递交案已打满本财年配额并顺延至 FY28。
                     </div>
                 </div>
             `;
         }
 
-        if (feedTitle) feedTitle.textContent = '9月19日 ~ 9月24日 491 偏远地区实盘批签追踪实录 (SmartVisaGuide)';
+        if (feedTitle) feedTitle.textContent = '9月24日 ~ 9月30日 491 偏远地区实盘批签追踪实录 (SmartVisaGuide)';
         if (feedRows) {
             feedRows.innerHTML = `
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">土木工程绘图员 (Civil Engineering Draftsperson)</span>
+                        <span class="feed-sub">QLD 境内 491 · 2026-05-20 递交 (80分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-tag-dg">⚡ 4.3个月免补料直签</span>
+                        <span class="feed-status">9/29 下签 · 偏远急需基建优先秒批</span>
+                    </div>
+                </div>
                 <div class="feed-row">
                     <div>
                         <span class="feed-occ">注册护士 (Registered Nurse - 偏远急需优先)</span>
                         <span class="feed-sub">TAS 境内 491 · 2026-05-18 递交 (85分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 3.8个月免补料直签</span>
-                        <span class="feed-status">9/23 下签 · 医疗绿色通道秒批</span>
+                        <span class="feed-tag-dg">⚡ 4.1个月免补料直签</span>
+                        <span class="feed-status">9/28 下签 · 医疗绿色通道极速下签</span>
+                    </div>
+                </div>
+                <div class="feed-row">
+                    <div>
+                        <span class="feed-occ">汽车修理工 (Motor Mechanic - 偏远境内普工)</span>
+                        <span class="feed-sub">SA 境内 491 · 2025-11-15 递交 (75分)</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">10.4个月直签</span>
+                        <span class="feed-status">9/27 下签 · 偏远技工平稳推进</span>
                     </div>
                 </div>
                 <div class="feed-row">
@@ -4198,18 +4237,8 @@ function switchSubclass(sc) {
                         <span class="feed-sub">SA 境外 491 · 2026-04-10 递交 (80分)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 4.5个月免补料直签</span>
-                        <span class="feed-status">9/22 下签 · 幼教急需跨国直签</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">厨师 (Chef - 偏远境内普通非优先)</span>
-                        <span class="feed-sub">QLD 境内 491 · 2025-11-03 递交 (75分)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">10.5个月直签</span>
-                        <span class="feed-status">9/21 下签 · 境内餐饮技工稳健推进</span>
+                        <span class="feed-tag-dg">⚡ 5.5个月免补料直签</span>
+                        <span class="feed-status">9/26 下签 · 幼教急需跨国直签</span>
                     </div>
                 </div>
                 <div class="feed-row">
@@ -4218,18 +4247,8 @@ function switchSubclass(sc) {
                         <span class="feed-sub">NSW 境外 491 · 2025-07-15 递交 (85分·带配偶)</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">14.2个月下签</span>
-                        <span class="feed-status">9/20 下签 · 境外带副申正常排期推进</span>
-                    </div>
-                </div>
-                <div class="feed-row">
-                    <div>
-                        <span class="feed-occ">会计师 (General Accountant - 境外单人普通)</span>
-                        <span class="feed-sub">WA 境外 491 · 2025-08-22 递交 (90分·单身)</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span class="feed-tag-dg">⚡ 13.1个月下签</span>
-                        <span class="feed-status">9/19 下签 · 单人Tier 3享受优先红利</span>
+                        <span class="feed-status" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1">14.3个月下签</span>
+                        <span class="feed-status">9/25 下签 · 境外带副申正常排期推进</span>
                     </div>
                 </div>
             `;
@@ -4652,12 +4671,20 @@ function switchTableMode(modeKey, btn) {
     if (hintEl) {
         if (currentSubclass === '190') {
             const tableModeHints190 = {
-                'm2': '当前展示：<strong>【模式 2 · 双目标提速】</strong> 境内94+境外40人/日，双轨独立全速推进（与9.21~9.24官方审批实测吻合度最高）。',
+                'm2': '当前展示：<strong>【模式 2 · 双目标提速】</strong> 境内94+境外40人/日，双轨独立全速推进（与9.21~9.30官方审批实测吻合度最高）。',
                 'm1': '当前展示：<strong>【模式 1 · 固定基准】</strong> 128人/日固定速度（不借调配额，节奏较保守）。',
                 'm3': '当前展示：<strong>【模式 3 · T3优先并行】</strong> 境外单人优先分得64%配额，与T4家庭类并行消化。',
                 'm4': '当前展示：<strong>【模式 4 · 单通道顺延】</strong> 假定境内全清才轮到境外（实盘已证伪）。'
             };
             hintEl.innerHTML = tableModeHints190[modeKey] || '';
+        } else if (currentSubclass === '189') {
+            const tableModeHints189 = {
+                'm2': '当前展示：<strong>【模式 2 · 官方实盘 79人/日】</strong> 严格吻合实盘测算，优先职业已出清，境内10月中推平，境外11月推平（推荐）。',
+                'm1': '当前展示：<strong>【模式 1 · 标准平稳 68人/日】</strong> 按16,900规划匀速消化，境外普通顺延至12月中旬。',
+                'm3': '当前展示：<strong>【模式 3 · 年末冲刺 95人/日】</strong> 调配产能加速推进，较模式2提前1~2周清盘。',
+                'm4': '当前展示：<strong>【模式 4 · 谨慎控盘 55人/日】</strong> 假设配额受限情景，仅作保守下限参考。'
+            };
+            hintEl.innerHTML = tableModeHints189[modeKey] || '';
         } else {
             const tableModeHints491 = {
                 'm2': '当前展示：<strong>【模式 2 · 官方实盘 44人/日】</strong> 扣除14天节假日闭馆日。境内稳定出清，境外于2026年4月触发配额耗尽熔断。',
@@ -4723,7 +4750,7 @@ function copyShareText() {
 ` +
         `预计获批：${date} (距今约${days})
 ` +
-        `测算基准：FOI官方${sc === '190' ? '24,196人' : '18,364人'}底盘与MD122四Tier模型
+        `测算基准：FOI官方${sc === '190' ? '24,196人' : (sc === '189' ? '6,242人' : '18,364人')}底盘与MD122四Tier模型
 ` +
         `仅供参考，祝早日下签！`;
 
