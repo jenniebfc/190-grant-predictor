@@ -1889,7 +1889,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
                     <div class="tracker-val">推进至 <strong>2026-06-18</strong> (境外基建/工程) / <strong>2026-06-25</strong> (境内医疗)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：9.28 境外工程经理、施工PM、水文地质学家仅 <strong>3.4 ~ 3.5个月</strong> 批量秒批，天级命中模型测算的9/28获批日！
                     </div>
                 </div>
@@ -1897,7 +1897,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-06-12</strong> (NSW软件工程) · 5月前已全清</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：境内旧案在 MD119 已全部审毕；6月大批次免补料直签密集涌现，10月中旬基本推平。
                     </div>
                 </div>
@@ -1905,7 +1905,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 3/4)</div>
                     <div class="tracker-val">推进至 <strong>2026-02-15</strong> · <strong>11月全出清</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：9.30 内政部发放全新一轮 189 邀请，确证池内 6.2k 存量即将按期推平！
                     </div>
                 </div>
@@ -2004,7 +2004,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
                     <div class="tracker-val">推进至 <strong>2026-05-02</strong> (境内医疗) / <strong>2026-05-10</strong> (境外优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：9.30 维州境外优先(2026-05-10)仅 <strong>4.9个月</strong> 直签！25%极速位稳定在 3.5~5.1 个月。
                     </div>
                 </div>
@@ -2012,7 +2012,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-01-29</strong> (VIC软件工程) · 补料推进至 <strong>2026-01</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：9.29 维州境内网络工程(100分)仅 <strong>5.2个月</strong> 免补料直签！境内中位数稳定在 9.0 个月。
                     </div>
                 </div>
@@ -2020,7 +2020,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌏 Offshore 境外普通通道实测 (Tier 3/4)</div>
                     <div class="tracker-val">稳步消化至 <strong>2025-05 ~ 2025-06</strong> (普通非优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 5.8个月 | 50% 7.4个月 | 75% 15.8个月</strong>。<br>
+                        官方周期：<strong>25% 5.3个月 | 50% 7.3个月 | 75% 15.5个月</strong>。<br>
                         实盘：普通非优先维持 15.8 个月控盘中位数；优先类境外基建/工程则享受独立提速通道(6.9个月)。
                     </div>
                 </div>
