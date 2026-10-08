@@ -266,27 +266,32 @@ def update_index_html(radar_data, recent_grants, verdict, now_bj):
     # 5. 更新雷达数据文案
     if radar_data:
         p = radar_data.get('Priority', {})
-        p_str = f"25% {p.get('25%','3.7')}个月 | 50% {p.get('50%','5.2')}个月 | 75% {p.get('75%','12.7')}个月"
-        html = re.sub(
-            r'官方周期：<strong>25% [^|]+ \| 50% [^|]+ \| 75% [^<]+</strong>',
-            f'官方周期：<strong>{p_str}</strong>',
-            html
-        )
+        p_str = f"25% {p.get('25%','4.8')}个月 | 50% {p.get('50%','5.6')}个月 | 75% {p.get('75%','12.2')}个月"
 
         on = radar_data.get('Onshore Non-Priority', {})
-        on_str = f"25% {on.get('25%','8.5')}个月 | 50% {on.get('50%','9.3')}个月 | 90% {on.get('90%','14.8')}个月"
-        html = re.sub(
-            r'官方周期：<strong>25% [^|]+ \| 50% [^|]+ \| 90% [^<]+</strong>',
-            f'官方周期：<strong>{on_str}</strong>',
-            html
-        )
+        on_str = f"25% {on.get('25%','7.9')}个月 | 50% {on.get('50%','9.2')}个月 | 75% {on.get('75%','16.5')}个月"
 
         off = radar_data.get('Offshore Non-Priority', {})
-        off_str = f"25% {off.get('25%','15.5')}个月 | 50% {off.get('50%','15.9')}个月 | 90% {off.get('90%','17.1')}个月"
+        off_str = f"25% {off.get('25%','15.1')}个月 | 50% {off.get('50%','15.8')}个月 | 75% {off.get('75%','16.3')}个月"
+
+        # 精确更新静态与动态 190 栏位
         html = re.sub(
-            r'官方周期：<strong>25% 15.5个月 \| 50% 15.9个月 \| 90% 17.1个月</strong>',
-            f'官方周期：<strong>{off_str}</strong>',
-            html
+            r'(Priority 优先通道实测.*?官方周期：<strong>)(.*?)(</strong>)',
+            rf'\g<1>{p_str}\g<3>',
+            html,
+            flags=re.DOTALL
+        )
+        html = re.sub(
+            r'(Onshore 境内普通通道实测.*?官方周期：<strong>)(.*?)(</strong>)',
+            rf'\g<1>{on_str}\g<3>',
+            html,
+            flags=re.DOTALL
+        )
+        html = re.sub(
+            r'(Offshore 境外普通通道实测.*?官方周期：<strong>)(.*?)(</strong>)',
+            rf'\g<1>{off_str}\g<3>',
+            html,
+            flags=re.DOTALL
         )
 
     with open(INDEX_HTML, 'w', encoding='utf-8') as f:
