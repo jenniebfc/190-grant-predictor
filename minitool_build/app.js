@@ -1897,7 +1897,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-06-12</strong> (NSW软件工程) · 5月前已全清</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 7.9个月 | 50% 8.9个月 | 75% 16.5个月</strong>。<br>
+                        官方周期：<strong>25% 8.1个月 | 50% 9.2个月 | 75% 16.5个月</strong>。<br>
                         实盘：境内旧案在 MD119 已清毕；6月大批次免补料直签集中突围，中位数大幅收窄至 <strong>6.6 个月</strong>。
                     </div>
                 </div>
@@ -2051,7 +2051,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2026-02-15</strong> (境内普工) · 补料推进至 <strong>2025-05</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 7.9个月 | 50% 8.9个月 | 75% 16.5个月</strong>。<br>
+                        官方周期：<strong>25% 8.1个月 | 50% 9.2个月 | 75% 16.5个月</strong>。<br>
                         实盘：10.8 NSW网络管理员与ACT程序员补料直签！境内中位数稳定在 9.2 个月，25%极速位达 7.9 个月。
                     </div>
                 </div>
@@ -2236,7 +2236,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🦘 Onshore 境内普通通道实测 (Tier 2)</div>
                     <div class="tracker-val">前沿推进至 <strong>2025-11-15</strong> (SA汽修) · 稳步消化 <strong>2025年下半年</strong></div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 7.9个月 | 50% 8.9个月 | 75% 16.5个月</strong>。<br>
+                        官方周期：<strong>25% 8.1个月 | 50% 9.2个月 | 75% 16.5个月</strong>。<br>
                         实盘：境内分配约 26人/日流水线，2025年积压平稳出清中，预计 2027年2月底前基本清空全量存量。
                     </div>
                 </div>
