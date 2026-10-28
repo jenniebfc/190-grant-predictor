@@ -1889,7 +1889,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
                     <div class="tracker-val">推进至 <strong>2026-06-24</strong> (境内农业) / <strong>2026-06-15</strong> (境外优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 3.5个月 | 50% 4.9个月 | 75% 16.8个月</strong>。<br>
+                        官方周期：<strong>25% 3.5个月 | 50% 7.1个月 | 75% 16.9个月</strong>。<br>
                         实盘：10.7 境外儿科护士仅 <strong>3.7个月</strong> 秒签，10.6 农业顾问 <strong>3.4个月</strong> 直签，天级命中模型测算！
                     </div>
                 </div>
@@ -2043,7 +2043,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌟 Priority 优先通道实测 (医疗/幼教/紧缺基建)</div>
                     <div class="tracker-val">推进至 <strong>2026-06-22</strong> (境内工程) / <strong>2026-06-19</strong> (境外优先)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 3.5个月 | 50% 4.9个月 | 75% 16.8个月</strong>。<br>
+                        官方周期：<strong>25% 3.5个月 | 50% 7.1个月 | 75% 16.9个月</strong>。<br>
                         实盘：10.6 昆州土木绘图员(2026-06-22)仅 <strong>3.5个月</strong> 免补料直签！优先极速位稳定在 3.5~4.8 个月。
                     </div>
                 </div>
@@ -2228,7 +2228,7 @@ function switchSubclass(sc) {
                     <div class="tracker-label">🌟 Priority 优先通道实测 (偏远医疗/教师/紧缺基建)</div>
                     <div class="tracker-val">推进至 <strong>2026-05-20</strong> (境内工程) / <strong>2026-05-18</strong> (境内医疗)</div>
                     <div class="tracker-hint">
-                        官方周期：<strong>25% 3.5个月 | 50% 4.9个月 | 75% 16.8个月</strong>。<br>
+                        官方周期：<strong>25% 3.5个月 | 50% 7.1个月 | 75% 16.9个月</strong>。<br>
                         实盘：9.29 昆州土木绘图员仅 <strong>4.3个月</strong> 免补料直签！偏远地区急需优先通道保持高速。
                     </div>
                 </div>
